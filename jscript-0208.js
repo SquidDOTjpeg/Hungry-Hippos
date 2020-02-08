@@ -1,7 +1,8 @@
 const searchBtn = $("#")
 const clearIngredientsBtn = $("#")
-const addIngredientBtn = $("#")
-const ingredientList = $("#")
+const addIngredientBtn = $("#add-ingredient")
+const ingredientList = $("#ingredient-list")
+const newIngredientInput = $("#new-ingredient-input")
 
 // Adding on click listeners to buttons
 
@@ -18,8 +19,9 @@ $(clearIngredientsBtn).on("click",function(){
 })
 
 // Add ingredient button
-$(addIngredientBtn).on("click", function(){
+$(addIngredientBtn).on("click", function(e){
 	e.preventDefault()
+	addNewIngredient()
 })
 
 // Adding Functions
@@ -31,5 +33,7 @@ function clearCheckedIngredients(){
 
 // Appends a text input and adds a new ingredient from that search
 function addNewIngredient(){
-
+	$(newIngredientInput).empty()
+	$("<input>").attr("type", "text")
+	.appendTo(newIngredientInput)
 }
