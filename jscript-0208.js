@@ -1,15 +1,35 @@
-var unirest = require("unirest");
+const searchBtn = $("#")
+const clearIngredientsBtn = $("#")
+const addIngredientBtn = $("#")
+const ingredientList = $("#")
 
-var req = unirest("GET", "https://tasty.p.rapidapi.com/tags/list");
+// Adding on click listeners to buttons
 
-req.headers({
-	"x-rapidapi-host": "tasty.p.rapidapi.com",
-	"x-rapidapi-key": "859d702838msh5b93a71ca2adb7dp16e714jsnd5e12694a313"
-});
+// Search button listener
+$(searchBtn).on("click", function(){
+	preventDefault()
+	apiSearch()
+})
 
+// Clear all checked ingredients button
+$(clearIngredientsBtn).on("click",function(){
+	preventDefault()
+	clearCheckedIngredients()
+})
 
-req.end(function (res) {
-	if (res.error) throw new Error(res.error);
+// Add ingredient button
+$(addIngredientBtn).on("click", function(){
+	e.preventDefault()
+})
 
-	console.log(res.body);
-});
+// Adding Functions
+
+// Clears all checked ingredients
+function clearCheckedIngredients(){
+
+}
+
+// Appends a text input and adds a new ingredient from that search
+function addNewIngredient(){
+
+}
