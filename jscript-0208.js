@@ -3,6 +3,7 @@ const clearIngredientsBtn = $("#")
 const addIngredientBtn = $("#add-ingredient")
 const ingredientList = $("#ingredient-list")
 const newIngredientInput = document.querySelector("#new-ingredient-input")
+var activeUserIngredientArray = []
 
 var ingredientTextInput = $("<input>").attr("type", "text")
 var submitNewIngredientBtn = $("<button>").text("Add New Ingredient")
@@ -16,21 +17,22 @@ var submitNewIngredientBtn = $("<button>").text("Add New Ingredient")
 // })
 
 // Clear all checked ingredients button
-$(clearIngredientsBtn).on("click",function(){
+$(clearIngredientsBtn).on("click", function () {
 	preventDefault()
 	clearCheckedIngredients()
 })
 
 // Add ingredient button
-$(addIngredientBtn).on("click", function(e){
+$(addIngredientBtn).on("click", function (e) {
 	e.preventDefault()
 	addNewIngredient()
 })
 
 // Add button to submit a new ingredient
-$(submitNewIngredientBtn).on("click", function(){
-	appendNewIngredient()
+$(submitNewIngredientBtn).on("click", function () {
 	storeNewIngredient()
+	appendNewIngredient()
+	
 })
 
 // On submit of a form
@@ -41,12 +43,12 @@ $(submitNewIngredientBtn).on("click", function(){
 // Adding Functions
 
 // Clears all checked ingredients
-function clearCheckedIngredients(){
-	
+function clearCheckedIngredients() {
+
 }
 
 // Appends a text input and adds a new ingredient from that search
-function addNewIngredient(){
+function addNewIngredient() {
 	$(newIngredientInput).empty()
 
 	$(ingredientTextInput).appendTo(newIngredientInput)
@@ -54,15 +56,18 @@ function addNewIngredient(){
 	$(submitNewIngredientBtn).appendTo(newIngredientInput)
 }
 
+// 
+function appendNewIngredient() {
+	ingredientList.empty()
+	for (i = 0; i < activeUserIngredientArray.length; i++) {
+		var li = $("<li>").text(activeUserIngredientArray[i])
 
-function appendNewIngredient(){
-	var ingredient = $("<li>").text(ingredientTextInput.val())
+		$(li).appendTo(ingredientList)
 
-	$(ingredient).appendTo(ingredientList)
+	}
 }
 
-function storeNewIngredient(){
-	var ingredient = ingredientTextInput.val()
-
-	console.log(ingredient)
+function storeNewIngredient() {
+	
+	activeUserIngredientArray.push(ingredientTextInput.val())
 }
