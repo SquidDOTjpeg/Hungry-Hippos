@@ -1,14 +1,15 @@
 var searchPara, userRatingScore, sampleIngredient, mealURL, mealImg;
 var recipeArray = [];
-const searchBar = $(`#search-bar`)
+const searchBarInput = $(`#search-bar-input`)
+const searchBarDiv = $(`#search-bar-div`)
 const targetForm = $(`#target-form`)
-// console.log(searchBar)
+
 targetForm.submit(function(e){
     e.preventDefault()
     el = e.target
     console.log(el)
-    console.log(searchBar[0].value)
-    searchPara = searchBar[0].value
+    console.log(searchBarInput[0].value)
+    searchPara = searchBarInput[0].value
     runRecipeAjax()
 })
 
@@ -52,11 +53,22 @@ function runRecipeAjax(){
             recipeArray.push(newObj)
         }
         console.log(recipeArray)
+        showResults()
 
         console.log(`======= response received END =======`)
     });
-
     console.log(`======= runAjax() END =======`)
+}
+function showResults(){
+    var ul = $(`<ul>`)
+    for(i=0;i<5;i++){
+        var result = $(`<li>`).attr(`class`, ``).attr(`id`, ``)
+        result.append($(`<img>`).attr(`src`,recipeArray[i].thumbnail_url).attr(`style`,`width: 6em`))
+        result.append($(`<button>`).attr(`type`,`button`).attr(`class`,`meal-buttons`).text(recipeArray[i].name))
+        ul.append(result)
+    }
+
+    searchBarDiv.append(ul)
 }
 
 
