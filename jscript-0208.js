@@ -60,9 +60,14 @@ function addNewIngredient() {
 function appendNewIngredient() {
 	ingredientList.empty()
 	for (i = 0; i < activeUserIngredientArray.length; i++) {
-		var li = $("<li>").text(activeUserIngredientArray[i])
+		var li = $("<li>")
+		var checkbox = $("<input>").attr("type", "checkbox").attr("id", "check-"+i).val(activeUserIngredientArray[i])
+		var label = $("<label>").attr("for", "check-"+i).text(activeUserIngredientArray[i])
 
-		$(li).appendTo(ingredientList)
+		li.appendTo(ingredientList)
+		$(checkbox).appendTo(li)
+		$(label).appendTo(li)
+		
 
 	}
 }
