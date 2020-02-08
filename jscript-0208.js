@@ -10,6 +10,6 @@ var settings = {
 	}
 }
 
-$.ajax(settings).then(function (response) {
-	console.log(response);
-});
+// $.ajax(settings).then(function (response) {
+// 	console.log(response);
+// });
