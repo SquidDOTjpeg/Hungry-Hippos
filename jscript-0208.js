@@ -2,7 +2,7 @@ var searchPara = `chinese`
 var settings = {
 	"async": true,
 	"crossDomain": true,
-	"url": "https://tasty.p.rapidapi.com/recipes/list?&q="+searchPara+"&from=0&sizes=20",
+	// "url": "https://tasty.p.rapidapi.com/recipes/list?&q="+searchPara+"&from=0&sizes=20",
 	"method": "GET",
 	"headers": {
 		"x-rapidapi-host": "tasty.p.rapidapi.com",
