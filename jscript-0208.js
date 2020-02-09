@@ -40,6 +40,7 @@ function runRecipeAjax(){
             newObj.thumbnail_url = response.results[j].thumbnail_url
             newObj.ingredientsArray = []
             var ingredientResponse
+
             if(response.results[j].sections !== undefined){
                 newObj.userRating = response.results[j].user_ratings.score
                 ingredientResponse = response.results[j].sections[0].components
@@ -62,17 +63,47 @@ function runRecipeAjax(){
 function showResults(){
     var ul = $(`<ul>`)
     for(i=0;i<5;i++){
-        var result = $(`<li>`).attr(`class`, ``).attr(`id`, ``)
+        var result = $(`<li>`).attr(`class`, ``).attr(`id`, `list-item`+i)
         result.append($(`<img>`).attr(`src`,recipeArray[i].thumbnail_url).attr(`style`,`width: 6em`))
-        result.append($(`<button>`).attr(`type`,`button`).attr(`class`,`meal-buttons`).text(recipeArray[i].name))
+        result.append($(`<button>`).attr(`id`,`button-`+i).attr(`type`,`button`).attr(`class`,`meal-buttons`).text(recipeArray[i].name))
         ul.append(result)
     }
 
     searchBarDiv.append(ul)
+    
+    $(`.meal-buttons`).on(`click`,function(e){
+        var el = e.target
+        console.log(el.id)
+        
+        switch(el.id){
+            case `button-0`:
+                dropdownRecipe(0)
+                break
+            case `button-1`:
+                dropdownRecipe(1)
+                break
+            case `button-2`:
+                dropdownRecipe(2)
+                break
+            case `button-3`:
+                dropdownRecipe(3)
+                break
+            case `button-4`:
+                dropdownRecipe(4)
+                break
+        }
+    })
 }
 
 
+function dropdownRecipe(arg){
+    var selectedItem = `#list-item`+arg
+    $(selectedItem).append(`instructions for ` + recipeArray[arg].name + ` are: `)
+    // searchBarDiv.append(`instructions for ` + recipeArray[arg].name + ` are: `)
+    // console.log(`this is the recipe name: ` + recipeArray[arg].name)
+}
 
-
-
-
+function buildRecipeDiv(){
+    // need to add button at bottom >> for "adding all ingredients" to "user Active List"
+    
+}
