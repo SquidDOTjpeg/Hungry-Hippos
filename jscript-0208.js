@@ -3,11 +3,12 @@ const clearIngredientsBtn = $("#clear-ingredients-button")
 const addIngredientBtn = $("#add-ingredient")
 const ingredientList = $("#ingredient-list")
 const newIngredientInput = document.querySelector("#new-ingredient-input")
+const searchBar = $("#search-bar")
 var activeUserIngredientArray = []
 
 
-var ingredientTextInput = $("<input>").attr("type", "text").attr("id", "ingredient-text-input")
-var submitNewIngredientBtn = $("<button>").text("Add New Ingredient")
+var ingredientTextInput = $("#ingredient-text-input")
+var submitNewIngredientBtn = $("#submit-new-button")
 // Adding on click listeners to buttons
 
 // Search button listener
@@ -16,16 +17,23 @@ var submitNewIngredientBtn = $("<button>").text("Add New Ingredient")
 // 	preventDefault()
 // 	apiSearch()
 // })
+addNewIngredient()
+
+// Search bar enter function
+$(searchBar).keydown(function (event) {
+	if (event.which === 13) {
+		event.preventDefault()
+		apiSearch()
+	}
+})
 
 // Add ingredient text bar
-$(ingredientTextInput).keyup(function(e) {
-console.log(test)
-}).keydown(function(event){
-		if(event.which === 13){
-			event.preventDefault()
-			storeNewIngredient()
-			appendNewIngredient()
-		}
+$(ingredientTextInput).keydown(function (event) {
+	if (event.which === 13) {
+		event.preventDefault()
+		storeNewIngredient()
+		appendNewIngredient()
+	}
 })
 
 // Clear all checked ingredients button
@@ -46,16 +54,11 @@ $(submitNewIngredientBtn).on("click", function (e) {
 	appendNewIngredient()
 })
 
-// On submit of a form
-// $("#target-form").submit(function(e){
-// 	console.log("g")
-// })
-
 // Adding Functions
 
 // Clears all checked ingredients
 function clearCheckedIngredients() {
-	for (var i = activeUserIngredientArray.length-1; i >= 0 ; i--) {
+	for (var i = activeUserIngredientArray.length - 1; i >= 0; i--) {
 		var itemChecked = document.getElementById("check-" + i)
 		if (itemChecked.checked === true) {
 			activeUserIngredientArray.splice(i, 1)
@@ -68,9 +71,9 @@ function clearCheckedIngredients() {
 function addNewIngredient() {
 	$(ingredientTextInput).empty()
 
-	$(ingredientTextInput).appendTo(newIngredientInput)
+	$(ingredientTextInput).toggle()
 
-	$(submitNewIngredientBtn).appendTo(newIngredientInput)
+	$(submitNewIngredientBtn).toggle()
 }
 
 // Append the items in the activeUserIngredientArray
@@ -78,22 +81,22 @@ function appendNewIngredient() {
 	ingredientList.empty()
 	for (i = 0; i < activeUserIngredientArray.length; i++) {
 
-			var li = $("<li>")
-	
-			var checkbox = $("<input>")
-				.attr("type", "checkbox")
-				.attr("id", "check-" + i)
-				.attr("class", "checkboxes")
-				.val(activeUserIngredientArray[i])
-	
-			var label = $("<label>")
-				.attr("for", "check-" + i)
-				.text(activeUserIngredientArray[i])
-	
-			li.appendTo(ingredientList)
-			$(checkbox).appendTo(li)
-			$(label).appendTo(li)
-		
+		var li = $("<li>")
+
+		var checkbox = $("<input>")
+			.attr("type", "checkbox")
+			.attr("id", "check-" + i)
+			.attr("class", "checkboxes")
+			.val(activeUserIngredientArray[i])
+
+		var label = $("<label>")
+			.attr("for", "check-" + i)
+			.text(activeUserIngredientArray[i])
+
+		li.appendTo(ingredientList)
+		$(checkbox).appendTo(li)
+		$(label).appendTo(li)
+
 	}
 }
 

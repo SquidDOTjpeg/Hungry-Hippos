@@ -56,7 +56,7 @@
                 <div class="grid-x grid-padding-x">
                   <div class="cell">
                     <label>Find Recipe, Meal, etc..
-                      <input type="text" placeholder="search...">
+                      <input type="text" id="search-bar" placeholder="search...">
                     </label>
                   </div>
                   
@@ -68,7 +68,10 @@
                   <ul>
                     <div id="ingredient-list"></div>
                     <button id="add-ingredient">Add Ingredient</button>
-                      <div id="new-ingredient-input"></div>
+                      <div id="new-ingredient-input">
+                        <input type="text" placeholder="Type item here..." id="ingredient-text-input">
+                        <button id="submit-new-button">Add new item</button>
+                      </div>
                   </ul>
                 </li>
                 <!-- ... -->
