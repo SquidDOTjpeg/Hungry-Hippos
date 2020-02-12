@@ -6,7 +6,7 @@ const newIngredientInput = document.querySelector("#new-ingredient-input")
 var activeUserIngredientArray = []
 
 
-var ingredientTextInput = $("<input>").attr("type", "text")
+var ingredientTextInput = $("<input>").attr("type", "text").attr("id", "ingredient-text-input")
 var submitNewIngredientBtn = $("<button>").text("Add New Ingredient")
 // Adding on click listeners to buttons
 
@@ -17,9 +17,19 @@ var submitNewIngredientBtn = $("<button>").text("Add New Ingredient")
 // 	apiSearch()
 // })
 
+// Add ingredient text bar
+$(ingredientTextInput).keyup(function(e) {
+console.log(test)
+}).keydown(function(event){
+		if(event.which === 13){
+			event.preventDefault()
+			storeNewIngredient()
+			appendNewIngredient()
+		}
+})
+
 // Clear all checked ingredients button
 $(clearIngredientsBtn).on("click", function () {
-
 	clearCheckedIngredients()
 })
 
@@ -56,7 +66,7 @@ function clearCheckedIngredients() {
 
 // Appends a text input and adds a new ingredient from that search
 function addNewIngredient() {
-	$(newIngredientInput).empty()
+	$(ingredientTextInput).empty()
 
 	$(ingredientTextInput).appendTo(newIngredientInput)
 
