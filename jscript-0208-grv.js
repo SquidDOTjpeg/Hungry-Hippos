@@ -1,5 +1,5 @@
-const searchBarInput = $(`#search-bar-input`)
-const searchBarDiv = $(`#search-bar-div`)
+const searchBarInput = $(`#findlocate`)
+const resultsDiv = $(`#results-div`)
 const searchForm = $(`#search-form`)
 const searchBarLabel = $(`#search-bar-label`)
 const searchAnimationDiv = $(`<div>`)
@@ -20,7 +20,7 @@ function runSearchAnimation() {
 	searchBarInput.attr(`placeholder`, ``)
 	searchAnimationDiv.empty()
 	var searchAnimationText = ($(`<h4>`).text(`Searching for "` + searchPara + `".`))
-	searchBarDiv.append(searchAnimationDiv.append(searchAnimationText))
+	resultsDiv.append(searchAnimationDiv.append(searchAnimationText))
 	searchingTimer = setInterval(function () {
 		searchAnimationText.text(`Searching for "` + searchPara + `"..`)
 		setTimeout(function () {
@@ -138,7 +138,7 @@ function showResults() {
 		result.append(ulIngredientsList.append($(`<button class="recipe-ingredients-button">`).attr(`type`, `button`).attr(`id`, ``).text(`add ingredients to my list`)))
 	}
 
-	searchBarDiv.append(ulRecipeList)
+	resultsDiv.append(ulRecipeList)
 	$(`.recipe-names`).on(`click`, function (e) {
 		var el = e.target
 		var content = el.nextElementSibling;
