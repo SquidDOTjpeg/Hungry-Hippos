@@ -41,7 +41,7 @@ function runRecipeAjax() {
 		"crossDomain": true,
 		"url": "https://tasty.p.rapidapi.com/recipes/list?&q=" + searchPara + "&from=0&sizes=20",
 		"method": "GET",
-		// "error": recipeAjaxError,
+		"error": recipeAjaxError,
 		"headers": {
 			"x-rapidapi-host": "tasty.p.rapidapi.com",
 			"x-rapidapi-key": "859d702838msh5b93a71ca2adb7dp16e714jsnd5e12694a313"
@@ -110,31 +110,29 @@ function showResults() {
 	}
 	$(`#recipe-list`).empty()
 
-	var linktoRecipe = $(`<a>`).attr(`href`, `https://www.google.com`).text(`Click here for full recipe`)
 	var itemsToShow = 5			// amount of meals to show, to choose from
 	if (recipeArray.length < 5) {
 		itemsToShow = recipeArray.length
 	}
-
+	
 	for (i = 0; i < itemsToShow; i++) {
+		var linktoRecipe = $(`<a>`).attr(`href`, `https://www.google.com`).text(`Click here for full recipe`)
 		var result = $(`<div>`).attr(`class`, `recipe-list-items`).attr(`id`, `list-item` + i)
 		result.append($(`<img class="recipe-images">`).attr(`src`, recipeArray[i].thumbnail_url))
 		result.append($(`<span>`).attr(`id`, `recipe-` + i).attr(`class`, `recipe-names`).text(recipeArray[i].name))
 		ulRecipeList.append(result)
 		var ulIngredientsList = $(`<ul class="ingredients-list" style="display:none;">`)
-		// ulIngredientsList.prepend(linktoRecipe)
-
+		
 		for (w = 0; w < recipeArray[i].sections.length; w++) {
 			// append the name of the "component" and then in the loop its respective ingredients
 			$(`<p class="component-header">`).text(recipeArray[i].sections[w].name).appendTo(ulIngredientsList)
-
+			
 			for (x = 0; x < recipeArray[i].sections[w].ingredientsArray[0].length; x++) {
-				console.log(`ingredients array: `, recipeArray[i].sections[w].ingredientsArray[0])
 				$(`<li class="truncate">`).text(recipeArray[i].sections[w].ingredientsArray[0][x].raw_text).appendTo(ulIngredientsList)
 			}
 		}
-		result.prepend(linktoRecipe)
-		result.append(ulIngredientsList.append($(`<button class="recipe-ingredients-button">`).attr(`type`, `button`).attr(`id`, ``).text(`add ingredients to my list`)))
+		ulIngredientsList.prepend(linktoRecipe)
+		result.append(ulIngredientsList.append($(`<button class="recipe-ingredients-button-addAll">`).attr(`type`, `button`).attr(`id`, ``).text(`add ingredients to my list`)))
 	}
 
 	resultsDiv.append(ulRecipeList)

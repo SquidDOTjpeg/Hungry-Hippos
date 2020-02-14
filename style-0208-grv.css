@@ -36,7 +36,8 @@
   padding-bottom: .5em;
 }
 .recipe-ingredients-button-addAll{
-  background: blue;
+  background: rgba(60, 255, 0, 0.137);
+  /* color: white; */
   position: absolute;
   right: 0;
   bottom:  -2.5em;
@@ -45,7 +46,8 @@
   padding: .5em 1em;
 }
 .recipe-ingredients-button-addSelected{
-  background: blue;
+  background: rgba(0, 0, 255, 0.322);
+  color: white;
   position: absolute;
   right: 0;
   bottom:  -2.5em;

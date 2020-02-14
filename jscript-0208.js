@@ -98,7 +98,7 @@ function showResults() {
 			$(`<li class="truncate">`).text(recipeArray[i].sections.ingredientsArray[x]).appendTo(ingredientsUL)
 		}
 		result.prepend(linktoRecipe)
-		result.append(ingredientsUL.append($(`<button class="recipe-ingredients-button">`).attr(`type`, `button`).attr(`id`,``).text(`add ingredients to my list`)))
+		result.append(ingredientsUL.append($(`<button class="recipe-ingredients-button-addAll">`).attr(`type`, `button`).attr(`id`,``).text(`add ingredients to my list`)))
 	}
 
 	searchBarDiv.append(ul)
