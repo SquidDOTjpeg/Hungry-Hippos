@@ -76,14 +76,14 @@ function showResults() {
 		alert(`No recipes found`)
 	}
 	$(`#recipe-list`).empty()
-	var ul = $(`<ul id="recipe-list">`)
-	var linktoRecipe = $(`<a>`).attr(`href`,`https://www.google.com`).text(`Click here for full recipe`)
 	var itemsToShow = 5			// amount of meals to show, to choose from
+	var ul = $(`<ul id="recipe-list">`)
 	if (recipeArray.length < 5) {
 		itemsToShow = recipeArray.length
 	} 
-
+	
 	for (i = 0; i < itemsToShow; i++) {
+		var linktoRecipe = $(`<a>`).attr(`href`,`https://www.google.com?`+i).text(`Click here for full recipe`)
 		var result = $(`<div>`).attr(`class`, `recipe-list-items`).attr(`id`, `list-item` + i)
 		
 		result.append($(`<img>`).attr(`src`, recipeArray[i].thumbnail_url).attr(`style`, `width: 6em`))
@@ -92,11 +92,12 @@ function showResults() {
 		var ingredientsUL = $(`<ul class="ingredients-list" style="display:none;">`)
 
 		// this is only appending to the last listed recipe item, why so?
-		result.prepend(linktoRecipe)
+		// result.prepend(linktoRecipe)
 		
 		for (x = 0; x < recipeArray[i].sections.ingredientsArray.length; x++) {
 			$(`<li class="truncate">`).text(recipeArray[i].sections.ingredientsArray[x]).appendTo(ingredientsUL)
 		}
+		result.prepend(linktoRecipe)
 		result.append(ingredientsUL.append($(`<button class="recipe-ingredients-button">`).attr(`type`, `button`).attr(`id`,``).text(`add ingredients to my list`)))
 	}
 

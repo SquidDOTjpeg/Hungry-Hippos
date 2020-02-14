@@ -1,6 +1,6 @@
-const searchBarInput = $(`#findlocate`)
+const searchInput = $(`#findlocate`)
 const resultsDiv = $(`#results-div`)
-const searchForm = $(`#search-form`)
+const formSearch = $(`#search-form`)
 const searchBarLabel = $(`#search-bar-label`)
 const searchAnimationDiv = $(`<div>`)
 const ulRecipeList = $(`<ul id="recipe-list" class="recipe-list">`)
@@ -9,15 +9,15 @@ var searchPara, topMeals, userRatingScore, sampleIngredient, mealURL, mealImg;
 var recipeArray = [];
 // var recipestoPull = 20
 
-searchForm.submit(function (e) {
+formSearch.submit(function (e) {
 	ulRecipeList.empty()
-	searchPara = searchBarInput[0].value 	// places value of search bar input into variable, on submit (enter)
+	searchPara = searchInput[0].value 	// places value of search bar input into variable, on submit (enter)
 	runRecipeAjax()
 	e.preventDefault()
-	searchBarInput[0].value = ``
+	searchInput[0].value = ``
 })
 function runSearchAnimation() {
-	searchBarInput.attr(`placeholder`, ``)
+	searchInput.attr(`placeholder`, ``)
 	searchAnimationDiv.empty()
 	var searchAnimationText = ($(`<h4>`).text(`Searching for "` + searchPara + `".`))
 	resultsDiv.append(searchAnimationDiv.append(searchAnimationText))
@@ -26,7 +26,6 @@ function runSearchAnimation() {
 		setTimeout(function () {
 			searchAnimationText.text(`Searching for "` + searchPara + `"...`)
 		}, 500)
-
 	}, 1000)
 }
 function recipeAjaxError() {
@@ -105,7 +104,7 @@ function runRecipeAjax() {
 }
 function showResults() {
 	searchAnimationDiv.remove()
-	searchBarInput.attr(`placeholder`, `Search for...`)
+	searchInput.attr(`placeholder`, `Search for...`)
 	if (recipeArray.length === 0) {
 		alert(`No recipes found`)
 	}
