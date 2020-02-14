@@ -21,9 +21,9 @@
   float: left;
   margin-right: 15px;
 }
-/* .recipe-names{
-  padding: 1em;
-} */
+.recipe-names{
+  font-size: 1.53478em;
+}
 .ingredients-list{
   position: relative;
   list-style-type: disc;
