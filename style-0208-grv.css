@@ -18,10 +18,12 @@
 .recipe-images{
   max-height: 7em;
   max-width: 7em;
+  float: left;
+  margin-right: 15px;
 }
-.recipe-names{
+/* .recipe-names{
   padding: 1em;
-}
+} */
 .ingredients-list{
   position: relative;
   list-style-type: disc;
