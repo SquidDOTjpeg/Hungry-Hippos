@@ -1,111 +1,104 @@
 <!doctype html>
 <html class="no-js" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    
-    <!-- font awesome  -->
-    <link rel="stylesheet" href="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Custom JS -->
-    <script defer src="./jscript-0208.js"></script>
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="./style-0208.css">
-    
-    <!-- Compressed CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.4.3/dist/css/foundation.min.css"
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
+  <!-- font awesome  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./style-2.css">
+  <!-- Compressed CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.4.3/dist/css/foundation.min.css"
     integrity="sha256-GSio8qamaXapM8Fq9JYdGNTvk/dgs+cMLgPeevOYEx0= sha384-wAweiGTn38CY2DSwAaEffed6iMeflc0FMiuptanbN4J+ib+342gKGpvYRWubPd/+ sha512-QHEb6jOC8SaGTmYmGU19u2FhIfeG+t/hSacIWPpDzOp5yygnthL3JwnilM7LM1dOAbJv62R+/FICfsrKUqv4Gg=="
     crossorigin="anonymous">
-    
-    <!-- Compressed JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.4.3/dist/js/foundation.min.js"
+  <link rel="stylesheet" href="./style-0208.css">
+  <link rel="stylesheet" href="./style-0208-grv.css">
+  <!-- <link rel="stylesheet" href="css/foundation.css" /> -->
+
+  <script defer src="./jscript-0208.js"></script>
+  <script defer src="./jscript-0208-grv.js"></script>
+  <!-- Compressed JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.4.3/dist/js/foundation.min.js"
         integrity="sha256-mRYlCu5EG+ouD07WxLF8v4ZAZYCA6WrmdIXyn1Bv9Vk= sha384-KzKofw4qqetd3kvuQ5AdapWPqV1ZI+CnfyfEwZQgPk8poOLWaabfgJOfmW7uI+AV sha512-0gHfaMkY+Do568TgjJC2iMAV0dQlY4NqbeZ4pr9lVUTXQzKu8qceyd6wg/3Uql9qA2+3X5NHv3IMb05wb387rA=="
-        crossorigin="anonymous"></script>
-        <title>🍳 Hungry Hip-Po's</title>
-        <link rel="stylesheet" href="css/foundation.css" />
-      </head>
-      
-      <body>
-        <!-- top nav bar  -->
-        <!-- <div class="top-bar">
-          <div class="top-bar-left">
-            <ul class="menu">
-              <li class="menu-text">HH</li>
-              <li><a href="#">One</a></li>
-              <li><a href="#">Two</a></li>
-              <li><a href="#">Three</a></li>
-            </ul>
-          </div>
-        </div> -->
-        
-        <div class="callout small alert">
-          <div class="row column text-center">
-            <h2>HUNGRY HIP-PO'S</h2>
-            <h5 class="subheader">A Grocery List Builder</h5>
-          </div>
+        crossorigin="anonymous"></script> -->
+  <title>🍳 Hungry Hip-Po's</title>
+</head>
+
+<body>
+  <header class="hero-search-filter">
+    <div class="hero-search-filter-content">
+      <div class="hero-section">
+        <div class="hero-section-text">
+          <h1>Hungry Hip-Po's</h1>
+          <h5>Easy, Beautiful Grocery Shopping</h5>
         </div>
-        
-        
-        <!-- <div class="container fluid"> -->
-          
-          <form id="fake-form">
-        
-            <div class="row medium-7 columns">
-              <div class="grid-container">
-                <div class="grid-x grid-padding-x">
-                  <div class="cell">
-                    <label>Find Recipe, Meal, etc..
-                      <input type="text" id="search-bar" placeholder="search...">
-                    </label>
-                  </div>
-                  
-                </div>
-              </div>
-              <ul class="accordion" data-responsive-accordion-tabs="accordion large-accordion">
-                <li class="accordion-item is-active" data-accordion-item>
-                  <a href="#" class="accordion-title">Accordion 1</a>
-                  <ul>
-                    <div id="ingredient-list"></div>
-                    <button id="add-ingredient">Add Ingredient</button>
-                      <div id="new-ingredient-input">
-                        <input type="text" placeholder="Type item here..." id="ingredient-text-input">
-                        <button id="submit-new-button">Add new item</button>
-                      </div>
-                  </ul>
-                </li>
-                <!-- ... -->
-              </ul>
-            </div>
-          </form>
-            <button id="clear-ingredients-button">Clear</button>
-          <!-- </div> -->
-          
-          <!-- <div class="row card-divider">
-            <h4>Grocery List:</h4>
-          </div>
-          <div class="row card-section fluid">
-            <ul>
-              <li><input id="item1" type="checkbox"></input><label for="item1"></label>Item 1</li>
-              <li><input id="item2" type="checkbox"></input><label for="item2"></label>Item 2</li>
-              <li><input id="item3" type="checkbox"></input><label for="item3"></label>Item 3</li>
-              <li><input id="item4" type="checkbox"></input><label for="item4"></label>Item 4</li>
-              <li><input id="item5" type="checkbox"></input><label for="item5"></label>Item 5</li>
-              <li><input id="item6" type="checkbox"></input><label for="item6"></label>Item 6</li>
-            </ul>
-          </div> -->
-                    
-          <!-- jQuery must be imported before Foundation -->
-          <script src="js/jquery.min.js"></script>
-          <!-- this will include every plugin and utility required by Foundation -->
-          <script src="js/foundation.min.js"></script>
-          <script src="js/vendor/jquery.js"></script>
-          <script src="js/vendor/what-input.js"></script>
-          <script src="js/vendor/foundation.min.js"></script>
-          <script src="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>
-          <script>
-            $(document).foundation();
-            </script>
+
+      </div>
+      <form class="hero-search-filter-form" action="">
+        <!-- <label for="findtext">Find</label>
+        <input id="findtext" class="hero-search-filter-form-find" type="text" />
+        <div class="divider">&nbsp;</div> -->
+        <label for="findlocate">Find:</label>
+        <input id="findlocate" class="hero-search-filter-form-near" type="text" />
+        <button class="button"><i class="fa fa-search"></i></button>
+      </form>
+      <ul class="hero-search-filter-menu menu align-center">
+        <li><a href="#"><i class="fa fa-list" aria-hidden="true"></i> Hot Recipes</a></li>
+        <li><a href="#"><i class="fa fa-cutlery" aria-hidden="true"></i> Ingredients</a></li>
+      </ul>
+    </div>
+  </header>
+
+
+
+
+  <!-- <div class="container fluid"> -->
+  <div id="results-div" class="row medium-7 columns">
+
+  </div>
+  <!-- Float Button -->
+
+
+  <a href="#" class="float" id="menu-share">
+    <i class="fa fa-share my-float"></i>
+  </a>
+  <ul class="float-list">
+    <li>
+      <div class="label-container">
+        <div class="label-text">Add Ingredient</div>
+        <i class="fa fa-play label-arrow"></i>
+      </div>
+      <a href="#">
+        <i class="fa fa-plus my-float"></i>
+      </a>
+    </li>
+    <li>
+      <div class="label-container">
+        <div class="label-text">Clear List</div>
+        <i class="fa fa-play label-arrow"></i>
+      </div>
+      <a href="#">
+        <i class="fa fa-minus my-float"></i>
+      </a>
+    </li>
+
+    <!-- end float button -->
+    <!-- jQuery must be imported before Foundation -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <!-- this will include every plugin and utility required by Foundation -->
+    <script src="js/foundation.min.js"></script>
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/vendor/what-input.js"></script>
+    <script src="js/vendor/foundation.min.js"></script>
+    <script src="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
 </body>
 
 </html>
