@@ -46,6 +46,11 @@
   margin-right: .25em;
   padding: .5em 1em;
 }
+.component-header{
+  font-weight: 700;
+  margin-top: 1em;
+  margin-bottom: .5em;
+}
 .truncate {
   white-space: nowrap;
   overflow: hidden;
