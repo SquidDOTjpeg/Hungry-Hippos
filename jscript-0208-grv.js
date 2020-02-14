@@ -25,7 +25,6 @@ function runSearchAnimation() {
 		searchAnimationText.text(`Searching for "` + searchPara + `"..`)
 		setTimeout(function () {
 			searchAnimationText.text(`Searching for "` + searchPara + `"...`)
-
 		}, 500)
 
 	}, 1000)

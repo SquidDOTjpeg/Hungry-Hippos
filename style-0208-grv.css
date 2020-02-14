@@ -12,9 +12,7 @@
   width: 100%;
   margin: 10px 0;
   word-wrap: break-word;
-  border: 1px #ffffffce outset;
-  /* border-radius: 10%; */
-  /* border-bottom: 1px black solid; */
+  border: 1px #ffffff75 outset;
 
 }
 .recipe-images{
@@ -37,7 +35,16 @@
 .ingredients-list:last-child{
   padding-bottom: .5em;
 }
-.recipe-ingredients-button{
+.recipe-ingredients-button-addAll{
+  background: blue;
+  position: absolute;
+  right: 0;
+  bottom:  -2.5em;
+  margin-bottom: .25em;
+  margin-right: .25em;
+  padding: .5em 1em;
+}
+.recipe-ingredients-button-addSelected{
   background: blue;
   position: absolute;
   right: 0;
