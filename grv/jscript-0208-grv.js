@@ -14,9 +14,11 @@
 	var yuckyArray = [`Pancake`];
 	// activeUserIngredientArray = []
 	// var recipestoPull = 20
+	// console.log(activeUserIngredientArray)
 
 	feelingLuckyCog.on(`click`, function (e) {
 		callSettingsModal()
+
 		// alert(`Select which options to include in Hot recipes:\n\n` + feelingLuckyArray.join(`\n`))
 	})
 
