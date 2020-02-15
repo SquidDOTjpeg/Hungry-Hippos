@@ -1,6 +1,6 @@
-const searchBarInput = $(`#search-bar-input`)
-const searchBarDiv = $(`#search-bar-div`)
-const searchForm = $(`#search-form`)
+const searchInput = $(`#findlocate`)
+const resultsDiv = $(`#results-div`)
+const formSearch = $(`#search-form`)
 const searchBarLabel = $(`#search-bar-label`)
 const searchAnimationDiv = $(`<div>`)
 const ulRecipeList = $(`<ul id="recipe-list" class="recipe-list">`)
@@ -9,24 +9,23 @@ var searchPara, topMeals, userRatingScore, sampleIngredient, mealURL, mealImg;
 var recipeArray = [];
 // var recipestoPull = 20
 
-searchForm.submit(function (e) {
+formSearch.submit(function (e) {
 	ulRecipeList.empty()
-	searchPara = searchBarInput[0].value 	// places value of search bar input into variable, on submit (enter)
+	searchPara = searchInput[0].value 	// places value of search bar input into variable, on submit (enter)
 	runRecipeAjax()
 	e.preventDefault()
-	searchBarInput[0].value = ``
+	searchInput[0].value = ``
 })
 function runSearchAnimation() {
-	searchBarInput.attr(`placeholder`, ``)
+	searchInput.attr(`placeholder`, ``)
 	searchAnimationDiv.empty()
 	var searchAnimationText = ($(`<h4>`).text(`Searching for "` + searchPara + `".`))
-	searchBarDiv.append(searchAnimationDiv.append(searchAnimationText))
+	resultsDiv.append(searchAnimationDiv.append(searchAnimationText))
 	searchingTimer = setInterval(function () {
 		searchAnimationText.text(`Searching for "` + searchPara + `"..`)
 		setTimeout(function () {
 			searchAnimationText.text(`Searching for "` + searchPara + `"...`)
 		}, 500)
-
 	}, 1000)
 }
 function recipeAjaxError() {
@@ -42,7 +41,7 @@ function runRecipeAjax() {
 		"crossDomain": true,
 		"url": "https://tasty.p.rapidapi.com/recipes/list?&q=" + searchPara + "&from=0&sizes=20",
 		"method": "GET",
-		// "error": recipeAjaxError,
+		"error": recipeAjaxError,
 		"headers": {
 			"x-rapidapi-host": "tasty.p.rapidapi.com",
 			"x-rapidapi-key": "859d702838msh5b93a71ca2adb7dp16e714jsnd5e12694a313"
@@ -105,40 +104,38 @@ function runRecipeAjax() {
 }
 function showResults() {
 	searchAnimationDiv.remove()
-	searchBarInput.attr(`placeholder`, `Search for...`)
+	searchInput.attr(`placeholder`, `Search for...`)
 	if (recipeArray.length === 0) {
 		alert(`No recipes found`)
 	}
 	$(`#recipe-list`).empty()
 
-	var linktoRecipe = $(`<a>`).attr(`href`, `https://www.google.com`).text(`Click here for full recipe`)
 	var itemsToShow = 5			// amount of meals to show, to choose from
 	if (recipeArray.length < 5) {
 		itemsToShow = recipeArray.length
 	}
-
+	
 	for (i = 0; i < itemsToShow; i++) {
+		var linktoRecipe = $(`<a>`).attr(`href`, `https://www.google.com`).text(`Click here for full recipe`)
 		var result = $(`<div>`).attr(`class`, `recipe-list-items`).attr(`id`, `list-item` + i)
 		result.append($(`<img class="recipe-images">`).attr(`src`, recipeArray[i].thumbnail_url))
 		result.append($(`<span>`).attr(`id`, `recipe-` + i).attr(`class`, `recipe-names`).text(recipeArray[i].name))
 		ulRecipeList.append(result)
 		var ulIngredientsList = $(`<ul class="ingredients-list" style="display:none;">`)
-		// ulIngredientsList.prepend(linktoRecipe)
-
+		
 		for (w = 0; w < recipeArray[i].sections.length; w++) {
 			// append the name of the "component" and then in the loop its respective ingredients
 			$(`<p class="component-header">`).text(recipeArray[i].sections[w].name).appendTo(ulIngredientsList)
-
+			
 			for (x = 0; x < recipeArray[i].sections[w].ingredientsArray[0].length; x++) {
-				console.log(`ingredients array: `, recipeArray[i].sections[w].ingredientsArray[0])
 				$(`<li class="truncate">`).text(recipeArray[i].sections[w].ingredientsArray[0][x].raw_text).appendTo(ulIngredientsList)
 			}
 		}
-		result.prepend(linktoRecipe)
-		result.append(ulIngredientsList.append($(`<button class="recipe-ingredients-button">`).attr(`type`, `button`).attr(`id`, ``).text(`add ingredients to my list`)))
+		ulIngredientsList.prepend(linktoRecipe)
+		result.append(ulIngredientsList.append($(`<button class="recipe-ingredients-button-addAll">`).attr(`type`, `button`).attr(`id`, ``).text(`add ingredients to my list`)))
 	}
 
-	searchBarDiv.append(ulRecipeList)
+	resultsDiv.append(ulRecipeList)
 	$(`.recipe-names`).on(`click`, function (e) {
 		var el = e.target
 		var content = el.nextElementSibling;
