@@ -309,7 +309,7 @@ a.float:hover + div.label-container{
   font-size: 1.25em;
   padding: .2em;
 }
-.ingredients-list{
+.recipe-ing-list{
   position: relative;
   float: left;
   list-style-type: disc;
@@ -321,8 +321,11 @@ a.float:hover + div.label-container{
   /* border-left: 1px black solid;
   border-right:  1px black solid; */
 }
-.ingredients-list:last-child{
+.recipe-ing-list:last-child{
   padding-bottom: .5em;
+}
+.recipe-ing-list-item{
+  text-align: center;
 }
 .recipe-ingredients-button-addAll{
   background: rgba(60, 255, 0, 0.137);
@@ -333,6 +336,9 @@ a.float:hover + div.label-container{
   margin-bottom: .25em;
   margin-right: .25em;
   padding: .5em 1em;
+}
+.recipe-ingredients-button-addAll:visited{
+  background: gray;
 }
 .recipe-ingredients-button-addSelected{
   background: rgba(0, 0, 255, 0.322);
@@ -354,7 +360,9 @@ a.float:hover + div.label-container{
   margin: 4px;
   padding: .5em;
 }
-
+.instructions-list-item{
+  text-align: justify;
+}
 
 /* other global styling */
 .truncate {
@@ -362,6 +370,10 @@ a.float:hover + div.label-container{
   overflow: hidden;
   text-overflow: ellipsis;
 } 
+.disable-click{
+  pointer-events: none;
+  background-color: gray;
+}
 
 /* Modal Related CSS */
 

@@ -23,17 +23,16 @@
 	})
 
 	feelingLuckySpan.on(`click`, function (e) {
-		ulRecipeList.empty()
+		resultsDiv.empty()
 		var rnum = Math.floor(Math.random() * feelingLuckyArray.length)
 		searchPara = feelingLuckyArray[rnum]
 		runRecipeAjax()
 	})
 
 	formSearch.submit(function (e) {
-		ulRecipeList.empty()
+		resultsDiv.empty()
 		searchPara = searchInput[0].value 	// places value of search bar input into variable, on submit (enter)
 		runRecipeAjax()
-		// e.preventDefault()
 		searchInput[0].value = ``
 	})
 
@@ -78,6 +77,45 @@
 		// make listener for checked change & move (push/splice) to yuckyArray
 
 		modalContent.append(title, settingsList, saveBtn)
+		
+		saveBtn.on(`click`,function () {
+			modal.attr(`style`,`display:none;`)			// fake save button if settings can be saved when checked/unchecked
+
+		})
+
+		// When the user clicks anywhere outside of the modal, it does not close it
+		$(window).on(`click`,function (event) {
+			if (event.target == modal) {
+				modal.attr(`style`,`display:block;`)
+			}
+		})
+	}
+	function callRecipeModal(id) {
+		var modalContent = $(`#recipe-modal-content`)
+		var modal = $(`#recipeModal`)
+		var saveBtn = $(`<button id="recipe-close-button" class="recipe-close-button">`).text(`Close`)
+		var instructionsList = $(`<ol>`)
+		var title = $(`<h5>`).text(`Instructions:`)
+
+		// function createSettingsList(term,c){
+		// 	var li = $(`<li class="instructions-list-item">`)
+
+		// 	// var label = $(`<label>`).attr(`for`,foodterm).attr(`id`,foodterm).text(foodterm)
+
+		// 	instructionsList.append(li)
+		// }
+
+		modalContent.empty()
+		modal.attr(`style`,`display:block;`)					// immediately displaying the modal when called
+
+		for(l=0;l<recipeArray[id].instructions.length;l++){
+			var li = $(`<li class="instructions-list-item">`)
+			li.text(recipeArray[id].instructions[l])
+			instructionsList.append(li)
+			// console.log(recipeArray[id].instructions)
+		}
+
+		modalContent.append(title, instructionsList, saveBtn)
 		
 		saveBtn.on(`click`,function () {
 			modal.attr(`style`,`display:none;`)			// fake save button if settings can be saved when checked/unchecked
@@ -198,6 +236,9 @@
 
 		$(`.full-recipe-links`).on(`click`, function (e) {
 			var el = e.target
+			var p = el.parentElement.id
+			
+			renderRecipeInstructions(p)
 			// var modal = 
 
 			// I'd like a MODAL here, with the instructions in it (scroll capable and responsive)
@@ -208,6 +249,8 @@
 		$(`.recipe-ingredients-button-addAll`).on(`click`, function (e) {
 			e.stopPropagation()
 			var el = e.target
+			console.log(el)
+			$(el).attr(`class`,`recipe-ingredients-button-addAll disable-click`).text(`Ingredients added to list`)
 			var ingSections = recipeArray[el.parentElement.id].sections
 
 			for(s=0;s<ingSections.length;s++){
@@ -233,7 +276,7 @@
 		for (i = 0; i < itemsToShow; i++) {
 			var linktoRecipe = $(`<p class="full-recipe-links">`).attr(`id`, `recipe-video-` + i).text(`Click here for full recipe`)
 			var result = $(`<div>`).attr(`class`, `recipe-list-items`).attr(`id`, `list-item` + i)
-			var ulIngredientsList = $(`<ul class="ingredients-list" style="display:none;">`).attr(`id`,i)
+			var ulIngredientsList = $(`<ul class="recipe-ing-list" style="display:none;">`).attr(`id`,i)
 
 			result.append($(`<img class="recipe-images">`).attr(`src`, recipeArray[i].thumbnail_url))
 			result.append($(`<span>`).attr(`id`, `recipe-` + i).attr(`class`, `recipe-names`).text(recipeArray[i].name))
@@ -254,9 +297,9 @@
 	}
 
 
-	function renderRecipeInstructions() {
-		alert(`let's do this`)
-
+	function renderRecipeInstructions(id) {
+		console.log(recipeArray[id].instructions)
+		callRecipeModal(id)
 	}
 
 // })	// end of "on load" 	
