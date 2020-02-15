@@ -8,6 +8,9 @@ var activeUserIngredientArray = []
 
 var ingredientTextInput = $("#ingredient-text-input")
 var submitNewIngredientBtn = $("#submit-new-button")
+
+addNewIngredient()
+
 // Adding on click listeners to buttons
 
 // Ingredient List listener
@@ -38,8 +41,8 @@ $(clearIngredientsBtn).on("click", function () {
 })
 
 // Add ingredient button
-$(addIngredientBtn).on("click", function (e) {
-	e.preventDefault()
+$(addIngredientBtn).on("click", function () {
+	console.log("j")
 	addNewIngredient()
 })
 
@@ -65,6 +68,7 @@ function clearCheckedIngredients() {
 
 // Appends a text input and adds a new ingredient from that search
 function addNewIngredient() {
+	console.log("h")
 	$(ingredientTextInput).empty()
 
 	$(ingredientTextInput).toggle()
@@ -78,6 +82,7 @@ function appendNewIngredient() {
 	for (i = 0; i < activeUserIngredientArray.length; i++) {
 
 		var li = $("<li>")
+		.addClass("groceries")
 
 		var checkbox = $("<input>")
 			.attr("type", "checkbox")
@@ -101,4 +106,3 @@ function storeNewIngredient() {
 
 	activeUserIngredientArray.push(ingredientTextInput.val())
 }
-
