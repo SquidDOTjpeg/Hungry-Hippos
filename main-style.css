@@ -413,3 +413,32 @@ a.float:hover + div.label-container{
   text-decoration: none;
   cursor: pointer;
 }
+
+li{
+  list-style: none;
+}
+
+.menu-buttons{
+  color: white;
+  font-weight:normal;
+  font-family:Verdana, Geneva, sans-serif;
+  margin-right: 5px;
+}
+
+.menu-buttons:hover{
+  text-decoration: underline;
+  text-decoration-color: white;
+}
+
+.groceries{
+  background-color: #fff;
+  border-bottom: black 2px solid;
+  border-left: black 2px solid;
+  border-radius: 1rem;
+  padding: 8px;
+  margin-bottom: 5px;
+}
+
+#results-div{
+  margin-bottom: 3px;
+}
