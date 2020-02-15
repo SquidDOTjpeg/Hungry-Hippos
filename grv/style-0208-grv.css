@@ -1,0 +1,415 @@
+body{
+  font-family:Verdana, Geneva, sans-serif;
+  background-color:#CCC;
+}
+
+*{
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
+  padding:0;
+  margin:0;
+}
+
+/* search bar CSS  */
+.hero-section {
+  height: 60vh;
+  text-align: center;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.hero-section .hero-section-text {
+  color: #fefefe;
+  text-shadow: 1px 1px 2px #0a0a0a;
+}
+
+.hero-search-filter {
+  background: url("./assets/nrd-D6Tu_L3chLE-unsplash.jpg") center center no-repeat;
+  height: 300px;
+  background-size: cover;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.hero-search-filter-logo {
+  margin-bottom: 2rem;
+}
+
+.hero-search-filter-content {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 300px;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.hero-search-filter-menu {
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+
+@media screen and (max-width: 39.9375em) {
+  .hero-search-filter-menu li {
+    -webkit-flex-basis: 50%;
+        -ms-flex-preferred-size: 50%;
+            flex-basis: 50%;
+  }
+  .hero-search-filter-menu li a {
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+}
+
+.hero-search-filter-menu a {
+  color: #fefefe;
+  font-weight: bold;
+}
+
+.hero-search-filter-menu a .fa {
+  font-size: 1.125rem;
+  font-weight: normal;
+  text-decoration: none;
+}
+
+.hero-search-filter-menu a:hover {
+  text-decoration: underline;
+}
+
+.hero-search-filter-form {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 90%;
+  background: #fefefe;
+  padding: 0.25rem;
+  border-radius: 5px;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.hero-search-filter-form .divider {
+  background-color: #cacaca;
+  width: 1px;
+}
+
+.hero-search-filter-form label {
+  margin-right: 0.75rem;
+  margin-left: 0.75rem;
+  color: #8a8a8a;
+  font-weight: bold;
+}
+
+.hero-search-filter-form input,
+.hero-search-filter-form .button {
+  margin-bottom: 0;
+}
+
+
+.label-container{
+	position:fixed;
+	bottom:inherit;
+	right:105px;
+	display:table;
+	/* visibility: hidden; */
+}
+
+.label-text{
+	color:#FFF;
+	background:rgba(51,51,51,0.5);
+	display:table-cell;
+	vertical-align:middle;
+	padding:10px;
+	border-radius:3px;
+}
+
+.label-arrow{
+	display:table-cell;
+	vertical-align:middle;
+	color:#333;
+	opacity:0.5;
+}
+
+/*  floating buttons CSS 
+*/
+
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#06C;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+  box-shadow: 2px 2px 3px #999;
+  z-index:1000;
+	animation: bot-to-top 2s ease-out;
+}
+.float-list{
+	position:fixed;
+	right:40px;
+	padding-bottom:20px;
+	bottom:80px;
+	z-index:100;
+}
+
+.float-list li{
+	list-style:none;
+	margin-bottom:10px;
+}
+
+.float-list li a{
+	background-color:#F33;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+	width:60px;
+	height:60px;
+	display:block;
+}
+
+.float-list:hover{
+	visibility:visible!important;
+	opacity:1!important;
+}
+
+.my-float{
+	font-size:24px;
+	margin-top:18px;
+}
+
+a.float + div.label-container {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s ease;
+}
+
+a.float:hover + div.label-container{
+  visibility: visible;
+  opacity: 1;
+}
+a#menu-share + ul{
+  visibility: hidden;
+}
+
+a#menu-share:hover + ul{
+  visibility: visible;
+  animation: scale-in 0.5s;
+}
+
+a#menu-share i{
+	animation: rotate-in 0.5s;
+}
+
+a#menu-share:hover > i{
+	animation: rotate-out 0.5s;
+}
+a.float + div.label-container {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s ease;
+}
+
+a.float:hover + div.label-container{
+  visibility: visible;
+  opacity: 1;
+}
+@keyframes bot-to-top {
+  0%   {bottom:-40px}
+  50%  {bottom:40px}
+}
+
+@keyframes scale-in {
+  from {transform: scale(0);opacity: 0;}
+  to {transform: scale(1);opacity: 1;}
+}
+
+@keyframes rotate-in {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
+}
+
+@keyframes rotate-out {
+  from {transform: rotate(360deg);}
+  to {transform: rotate(0deg);}
+} 
+/* kasdg */
+
+@media screen and (max-width: 39.9375em) {
+  .hero-search-filter-form {
+    width: 95%;
+  }
+}
+
+.hero-search-filter-form-find,
+.hero-search-filter-form-near {
+  border: 0;
+  box-shadow: none;
+}
+
+.hero-search-filter-form-find:focus,
+.hero-search-filter-form-near:focus {
+  border: 0;
+  box-shadow: none;
+}
+
+.search-animation-div{
+  padding: 3em 0;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* all related to recipe container */
+.recipe-list{
+  margin: 0;
+}
+.recipe-list-items{
+  position: relative;
+  display: inline-block;
+  /* margin: auto; */
+  /* height: 80px; */
+  width: 100%;
+  margin: 10px 0;
+  word-wrap: break-word;
+  border: 1px #ffffff75 outset;
+}
+
+.recipe-images{
+  max-height: 7em;
+  max-width: 7em;
+  float: left;
+  margin-right: 15px;
+  margin-bottom: 15px;
+}
+.recipe-names{
+  font-size: 1.25em;
+  padding: .2em;
+}
+.ingredients-list{
+  position: relative;
+  float: left;
+  list-style-type: disc;
+  text-align: left;
+  margin-left: 0;
+  padding: 1em;
+  margin-bottom: 2.5em;
+  width: inherit;
+  /* border-left: 1px black solid;
+  border-right:  1px black solid; */
+}
+.ingredients-list:last-child{
+  padding-bottom: .5em;
+}
+.recipe-ingredients-button-addAll{
+  background: rgba(60, 255, 0, 0.137);
+  /* color: white; */
+  position: absolute;
+  right: 0;
+  bottom:  -2.5em;
+  margin-bottom: .25em;
+  margin-right: .25em;
+  padding: .5em 1em;
+}
+.recipe-ingredients-button-addSelected{
+  background: rgba(0, 0, 255, 0.322);
+  color: white;
+  position: absolute;
+  right: 0;
+  bottom:  -2.5em;
+  margin-bottom: .25em;
+  margin-right: .25em;
+  padding: .5em 1em;
+}
+.component-header{
+  font-weight: 700;
+  margin-top: 1em;
+  margin-bottom: .5em;
+}
+.instructions-container{
+  border: 1px solid red;
+  margin: 4px;
+  padding: .5em;
+}
+
+
+/* other global styling */
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+} 
+
+/* Modal Related CSS */
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.777); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  text-align: center;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 8px;
+  font-weight: bold;
+}
+.modal-save-button{
+  background: #0084ffda;
+  /* float: right; */
+  padding: .5em 1em;
+  margin-top: .25em;
+}
+.settings-list-item{
+  text-align: center;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}

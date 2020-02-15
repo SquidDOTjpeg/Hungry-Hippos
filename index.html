@@ -13,12 +13,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.4.3/dist/css/foundation.min.css"
     integrity="sha256-GSio8qamaXapM8Fq9JYdGNTvk/dgs+cMLgPeevOYEx0= sha384-wAweiGTn38CY2DSwAaEffed6iMeflc0FMiuptanbN4J+ib+342gKGpvYRWubPd/+ sha512-QHEb6jOC8SaGTmYmGU19u2FhIfeG+t/hSacIWPpDzOp5yygnthL3JwnilM7LM1dOAbJv62R+/FICfsrKUqv4Gg=="
     crossorigin="anonymous">
-  <link rel="stylesheet" href="./style-0208.css">
-  <link rel="stylesheet" href="./style-0208-grv.css">
+  <!-- <link rel="stylesheet" href="./style-0208.css"> -->
+  <link rel="stylesheet" href="./grv/style-0208-grv.css">
   <!-- <link rel="stylesheet" href="css/foundation.css" /> -->
 
   <!-- <script defer src="./jscript-0208.js"></script> -->
-  <script defer src="./jscript-0208-grv.js"></script>
+  <script defer src="./grv/jscript-0208-grv.js"></script>
   <!-- Compressed JavaScript -->
   <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
     crossorigin="anonymous"></script>
@@ -30,8 +30,9 @@
 
 <body>
   <header class="hero-search-filter">
-    <div class="hero-search-filter-content">
+    <div class="hero-search-filter-content"> 
       <div class="hero-section">
+        
         <div class="hero-section-text">
           <h1>Hungry Hip-Po's</h1>
           <h5>Easy, Beautiful Grocery Shopping</h5>
@@ -47,8 +48,16 @@
         <button class="button"><i class="fa fa-search"></i></button>
       </form>
       <ul class="hero-search-filter-menu menu align-center">
-        <li><a href="#"><i class="fa fa-list" aria-hidden="true"></i> Hot Recipes</a></li>
+        <li><a href="#" id="feeling-lucky"><i class="fa fa-list" aria-hidden="true"></i> Hot Recipes</a></li>
         <li><a href="#"><i class="fa fa-cutlery" aria-hidden="true"></i> Ingredients</a></li>
+        <li><i class="fa fa-cog" id="feeling-lucky-cog" style="font-size: large; color: white; margin-top: 10%; margin-right: -80%;"></i>
+          <div id="templateModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content" id="settings-modal-content">
+            </div>
+          
+          </div>
+        </li>
       </ul>
     </div>
   </header>
@@ -58,7 +67,12 @@
 
   <!-- <div class="container fluid"> -->
   <div id="results-div" class="row medium-7 columns">
-
+    <div id="recipeModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content" id="recipe-modal-content">
+      </div>
+    
+    </div>
   </div>
   <!-- Float Button -->
 
@@ -87,6 +101,7 @@
     </li>
 
     <!-- end float button -->
+    
     <!-- jQuery must be imported before Foundation -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"
       integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
