@@ -16,8 +16,8 @@
   <!-- <link rel="stylesheet" href="./grv/style-0208-grv.css"> -->
 
   <!-- <script defer src="./jscript-0208.js"></script> -->
-  <script defer src="./grv/jscript-0208-grv.js"></script>
-  <script defer src="./jscript-0208-ant.js"></script>
+  <!-- <script defer src="./grv/jscript-0208-grv.js"></script>
+  <script defer src="./jscript-0208-ant.js"></script> -->
   <!-- Compressed JavaScript -->
 
   <title>🍳 Hungry Hip-Po's | MAIN INDEX</title>
@@ -25,9 +25,9 @@
 
 <body>
   <header class="hero-search-filter">
-    <div class="hero-search-filter-content"> 
+    <div class="hero-search-filter-content">
       <div class="hero-section">
-        
+
         <div class="hero-section-text">
           <h1>Hungry Hip-Po's</h1>
           <h5>Easy, Beautiful Grocery Shopping</h5>
@@ -43,14 +43,15 @@
         <button class="button"><i class="fa fa-search"></i></button>
       </form>
       <ul class="hero-search-filter-menu menu align-center">
-        <li><a href="#" id="feeling-lucky"><i class="fa fa-list" aria-hidden="true"></i> Hot Recipes</a></li>
-        <li><a href="#"><i class="fa fa-cutlery" aria-hidden="true"></i> Ingredients</a></li>
-        <li><i class="fa fa-cog" id="feeling-lucky-cog" style="font-size: large; color: white; margin-top: 10%; margin-right: -80%;"></i>
+        <li><button id="feeling-lucky"><i class="fa fa-list" aria-hidden="true"></i> Hot Recipes</button></li>
+        <li><button id="main-ingredient-list"><i class="fa fa-cutlery" aria-hidden="true"></i> Ingredients</button></li>
+        <li><i class="fa fa-cog" id="feeling-lucky-cog"
+            style="font-size: large; color: white; margin-top: 10%; margin-right: -80%;"></i>
           <div id="templateModal" class="modal">
             <!-- Modal content -->
             <div class="modal-content" id="settings-modal-content">
             </div>
-          
+
           </div>
         </li>
       </ul>
@@ -63,7 +64,7 @@
       <!-- Modal content -->
       <div class="modal-content" id="recipe-modal-content">
       </div>
-    
+
     </div>
   </div>
   <!-- Float Button -->
@@ -78,8 +79,8 @@
         <div class="label-text">Add Ingredient</div>
         <i class="fa fa-play label-arrow"></i>
       </div>
-      <a href="#">
-        <i class="fa fa-plus my-float"></i>
+      <a href="#" id="add-ingredient">
+        <i class="fa fa-plus my-float" id></i>
       </a>
     </li>
     <li>
@@ -87,13 +88,13 @@
         <div class="label-text">Clear List</div>
         <i class="fa fa-play label-arrow"></i>
       </div>
-      <a href="#">
+      <a href="#" id="clear-ingredients-button">
         <i class="fa fa-minus my-float"></i>
       </a>
     </li>
 
     <!-- end float button -->
-    
+
     <!-- jQuery must be imported before Foundation -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"
       integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
@@ -101,6 +102,8 @@
     <script>
       $(document).foundation();
     </script>
+    <script src="./grv/jscript-0208-grv.js"></script>
+    <script src="./jscript-0208-ant.js"></script>
 </body>
 
 </html>

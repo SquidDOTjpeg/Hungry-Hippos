@@ -1,9 +1,9 @@
-const searchBtn = $("#")
 const clearIngredientsBtn = $("#clear-ingredients-button")
 const addIngredientBtn = $("#add-ingredient")
 const ingredientList = $("#ingredient-list")
 const newIngredientInput = document.querySelector("#new-ingredient-input")
 const searchBar = $("#search-bar")
+var mainIngredientList = $('#main-ingredient-list')
 var activeUserIngredientArray = []
 
 
@@ -11,9 +11,10 @@ var ingredientTextInput = $("#ingredient-text-input")
 var submitNewIngredientBtn = $("#submit-new-button")
 // Adding on click listeners to buttons
 
-// Search button listener
-
-addNewIngredient()
+// Ingredient List listener
+mainIngredientList.on("click", function(){
+	appendNewIngredient()
+})
 
 // Search bar enter function
 $(searchBar).keydown(function (event) {
@@ -74,7 +75,7 @@ function addNewIngredient() {
 
 // Append the items in the activeUserIngredientArray
 function appendNewIngredient() {
-	ingredientList.empty()
+	resultsDiv.empty()
 	for (i = 0; i < activeUserIngredientArray.length; i++) {
 
 		var li = $("<li>")
@@ -89,7 +90,7 @@ function appendNewIngredient() {
 			.attr("for", "check-" + i)
 			.text(activeUserIngredientArray[i])
 
-		li.appendTo(ingredientList)
+		li.appendTo(resultsDiv)
 		$(checkbox).appendTo(li)
 		$(label).appendTo(li)
 

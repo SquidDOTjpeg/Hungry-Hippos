@@ -1,4 +1,4 @@
-$(window).on("load", function () {
+// $(window).on("load", function () {
 	// waits for window to load before running rest of js ^
 	const searchInput = $(`#findlocate`)
 	const resultsDiv = $(`#results-div`)
@@ -235,4 +235,4 @@ $(window).on("load", function () {
 		alert(`let's do this`)
 	}
 
-})	// end of "on load" 	
+// })	// end of "on load" 	
