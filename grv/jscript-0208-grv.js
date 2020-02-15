@@ -12,10 +12,13 @@
 	var recipeArray = [];			// array to hold each recipe obj
 	var feelingLuckyArray = [`Pizza`, `Burger`, `Mexican`, `Chinese`, `Beef`, `Chicken`, `Pork`, `Tacos`, `Kale`, `Thai`, `Vietnamese`, `American`, `Orange Chicken`, `Orange Juice`, `Coconut`, `Acai`, `Corn`, `Hot Dog`]
 	var yuckyArray = [`Pancake`];
+	// activeUserIngredientArray = []
 	// var recipestoPull = 20
+	// console.log(activeUserIngredientArray)
 
 	feelingLuckyCog.on(`click`, function (e) {
 		callSettingsModal()
+
 		// alert(`Select which options to include in Hot recipes:\n\n` + feelingLuckyArray.join(`\n`))
 	})
 
@@ -33,6 +36,7 @@
 		// e.preventDefault()
 		searchInput[0].value = ``
 	})
+
 	function callSettingsModal() {
 		var chk = `chk`
 		var unchk = `unchk`
@@ -200,6 +204,25 @@
 
 			// $(`<div class="instructions-container">`).append(" ELEMENT TO APPEND HERE ").appendTo(el)
 		})
+
+		$(`.recipe-ingredients-button-addAll`).on(`click`, function (e) {
+			e.stopPropagation()
+			var el = e.target
+			var ingSections = recipeArray[el.parentElement.id].sections
+
+			for(s=0;s<ingSections.length;s++){
+				var ingArray = recipeArray[el.parentElement.id].sections[s].ingredientsArray
+				for(r=0;r<ingArray.length;r++){
+					for(q=0;q<ingArray[r].length;q++){
+						activeUserIngredientArray.push(ingArray[r][q].raw_text)
+						// console.log()
+					}
+				}
+			}
+
+			console.log(activeUserIngredientArray)
+
+		})
 	}
 	function buildRecipeContainer() {
 		var itemsToShow = 5			// amount of meals to show, to choose from
@@ -210,7 +233,7 @@
 		for (i = 0; i < itemsToShow; i++) {
 			var linktoRecipe = $(`<p class="full-recipe-links">`).attr(`id`, `recipe-video-` + i).text(`Click here for full recipe`)
 			var result = $(`<div>`).attr(`class`, `recipe-list-items`).attr(`id`, `list-item` + i)
-			var ulIngredientsList = $(`<ul class="ingredients-list" style="display:none;">`)
+			var ulIngredientsList = $(`<ul class="ingredients-list" style="display:none;">`).attr(`id`,i)
 
 			result.append($(`<img class="recipe-images">`).attr(`src`, recipeArray[i].thumbnail_url))
 			result.append($(`<span>`).attr(`id`, `recipe-` + i).attr(`class`, `recipe-names`).text(recipeArray[i].name))
@@ -233,6 +256,7 @@
 
 	function renderRecipeInstructions() {
 		alert(`let's do this`)
+
 	}
 
 // })	// end of "on load" 	
