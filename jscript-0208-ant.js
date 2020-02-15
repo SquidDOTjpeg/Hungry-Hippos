@@ -1,10 +1,8 @@
-const searchBtn = $("#")
 const clearIngredientsBtn = $("#clear-ingredients-button")
 const addIngredientBtn = $("#add-ingredient")
 const ingredientList = $("#ingredient-list")
 const newIngredientInput = document.querySelector("#new-ingredient-input")
 const searchBar = $("#search-bar")
-var activeUserIngredientArray = []
 
 
 var ingredientTextInput = $("#ingredient-text-input")
