@@ -92,18 +92,10 @@
 	}
 	function callRecipeModal(id) {
 		var modalContent = $(`#recipe-modal-content`)
-		var modal = $(`#recipeModal`)
+		var modal = $(`#recipe-modal`)
 		var saveBtn = $(`<button id="recipe-close-button" class="recipe-close-button">`).text(`Close`)
 		var instructionsList = $(`<ol>`)
 		var title = $(`<h5>`).text(`Instructions:`)
-
-		// function createSettingsList(term,c){
-		// 	var li = $(`<li class="instructions-list-item">`)
-
-		// 	// var label = $(`<label>`).attr(`for`,foodterm).attr(`id`,foodterm).text(foodterm)
-
-		// 	instructionsList.append(li)
-		// }
 
 		modalContent.empty()
 		modal.attr(`style`,`display:block;`)					// immediately displaying the modal when called
@@ -239,11 +231,6 @@
 			var p = el.parentElement.id
 			
 			renderRecipeInstructions(p)
-			// var modal = 
-
-			// I'd like a MODAL here, with the instructions in it (scroll capable and responsive)
-
-			// $(`<div class="instructions-container">`).append(" ELEMENT TO APPEND HERE ").appendTo(el)
 		})
 
 		$(`.recipe-ingredients-button-addAll`).on(`click`, function (e) {
