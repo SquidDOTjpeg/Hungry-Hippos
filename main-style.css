@@ -1,6 +1,15 @@
-*{
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+body{
+  font-family:Verdana, Geneva, sans-serif;
+  background-color:#CCC;
 }
+
+*{
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
+  padding:0;
+  margin:0;
+}
+
+/* search bar CSS  */
 .hero-section {
   height: 60vh;
   text-align: center;
@@ -20,86 +29,8 @@
   text-shadow: 1px 1px 2px #0a0a0a;
 }
 
-
-
-.todo-list-card {
-    background-color: #fefefe;
-    border-radius: 0;
-    max-width: 300px;
-  }
-  
-  .todo-list-card .card-divider {
-    border-bottom: 2px solid #cacaca;
-    background: inherit;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-justify-content: space-between;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-  }
-  
-  .todo-list-card .card-divider h3 {
-    margin-bottom: 0;
-  }
-  
-  .todo-list-card .card-divider .close-button {
-    position: inherit;
-  }
-  
-  .todo-list-card ul {
-    list-style-type: none;
-    margin: 0;
-  }
-  
-  .todo-list-card ul li {
-    background-color: #e6e6e6;
-    margin: 10px 0;
-    padding: 10px;
-  }
-  
-  .todo-list-card ul input[type="checkbox"] {
-    position: absolute;
-    visibility: hidden;
-    left: -99999px;
-  }
-  
-  .todo-list-card ul input[type="checkbox"] ~ label {
-    position: relative;
-    margin-left: 2rem;
-  }
-  
-  .todo-list-card ul input[type="checkbox"] ~ label::after {
-    background: #fefefe;
-    border: 1px solid #e6e6e6;
-    content: '';
-    display: block;
-    height: 20px;
-    left: -2rem;
-    width: 20px;
-    position: absolute;
-    top: 50%;
-    -webkit-transform: translateY(-80%);
-        -ms-transform: translateY(-80%);
-            transform: translateY(-80%);
-  }
-  
-  .todo-list-card ul input[type="checkbox"]:checked ~ label:after {
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: 18px;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    content: "\f00c";
-    color: #1779ba;
-    border: 1px solid #1779ba;
-  }
-
-
-
-  
 .hero-search-filter {
-  background: url("./assets/nrd-D6Tu_L3chLE-unsplash.jpg") center center no-repeat;
+  background: url(./assets/nrd-D6Tu_L3chLE-unsplash.jpg) center center no-repeat;
   height: 300px;
   background-size: cover;
   display: -webkit-flex;
@@ -136,13 +67,6 @@
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
 }
-
-
-
-*{padding:0;margin:0;}
-
-
-
 
 @media screen and (max-width: 39.9375em) {
   .hero-search-filter-menu li {
@@ -202,14 +126,6 @@
   margin-bottom: 0;
 }
 
-/* asyb */
-*{padding:0;margin:0;}
-
-body{
-	font-family:Verdana, Geneva, sans-serif;
-	background-color:#CCC;
-
-}
 
 .label-container{
 	position:fixed;
@@ -234,6 +150,9 @@ body{
 	color:#333;
 	opacity:0.5;
 }
+
+/*  floating buttons CSS 
+*/
 
 .float{
 	position:fixed;
@@ -358,6 +277,139 @@ a.float:hover + div.label-container{
   box-shadow: none;
 }
 
+.search-animation-div{
+  padding: 3em 0;
+  text-align: center;
+  vertical-align: middle;
+}
 
-  
-  
+/* all related to recipe container */
+.recipe-list{
+  margin: 0;
+}
+.recipe-list-items{
+  position: relative;
+  display: inline-block;
+  /* margin: auto; */
+  /* height: 80px; */
+  width: 100%;
+  margin: 10px 0;
+  word-wrap: break-word;
+  border: 1px #ffffff75 outset;
+}
+
+.recipe-images{
+  max-height: 7em;
+  max-width: 7em;
+  float: left;
+  margin-right: 15px;
+  margin-bottom: 15px;
+}
+.recipe-names{
+  font-size: 1.25em;
+  padding: .2em;
+}
+.ingredients-list{
+  position: relative;
+  float: left;
+  list-style-type: disc;
+  text-align: left;
+  margin-left: 0;
+  padding: 1em;
+  margin-bottom: 2.5em;
+  width: inherit;
+  /* border-left: 1px black solid;
+  border-right:  1px black solid; */
+}
+.ingredients-list:last-child{
+  padding-bottom: .5em;
+}
+.recipe-ingredients-button-addAll{
+  background: rgba(60, 255, 0, 0.137);
+  /* color: white; */
+  position: absolute;
+  right: 0;
+  bottom:  -2.5em;
+  margin-bottom: .25em;
+  margin-right: .25em;
+  padding: .5em 1em;
+}
+.recipe-ingredients-button-addSelected{
+  background: rgba(0, 0, 255, 0.322);
+  color: white;
+  position: absolute;
+  right: 0;
+  bottom:  -2.5em;
+  margin-bottom: .25em;
+  margin-right: .25em;
+  padding: .5em 1em;
+}
+.component-header{
+  font-weight: 700;
+  margin-top: 1em;
+  margin-bottom: .5em;
+}
+.instructions-container{
+  border: 1px solid red;
+  margin: 4px;
+  padding: .5em;
+}
+
+
+/* other global styling */
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+} 
+
+/* Modal Related CSS */
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.777); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  text-align: center;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 8px;
+  font-weight: bold;
+}
+.modal-save-button{
+  background: #0084ffda;
+  /* float: right; */
+  padding: .5em 1em;
+  margin-top: .25em;
+}
+.settings-list-item{
+  text-align: center;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
