@@ -30,7 +30,7 @@ body{
 }
 
 .hero-search-filter {
-  background: url(./assets/nrd-D6Tu_L3chLE-unsplash.jpg) center center no-repeat;
+  background: url(../assets/nrd-D6Tu_L3chLE-unsplash.jpg) center center no-repeat;
   height: 300px;
   background-size: cover;
   display: -webkit-flex;
@@ -361,7 +361,9 @@ a.float:hover + div.label-container{
   padding: .5em;
 }
 .instructions-list-item{
+  list-style-type: inherit !important;
   text-align: justify;
+  margin-bottom: 5px;
 }
 
 /* other global styling */

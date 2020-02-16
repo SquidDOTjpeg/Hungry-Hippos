@@ -327,28 +327,27 @@ a.float:hover + div.label-container{
 .recipe-ing-list-item{
   text-align: center;
 }
-.recipe-ingredients-button-addAll{
-  background: rgba(60, 255, 0, 0.137);
-  /* color: white; */
-  position: absolute;
-  right: 0;
-  bottom:  -2.5em;
-  margin-bottom: .25em;
-  margin-right: .25em;
-  padding: .5em 1em;
-}
-.recipe-ingredients-button-addAll:visited{
-  background: gray;
-}
-.recipe-ingredients-button-addSelected{
-  background: rgba(0, 0, 255, 0.322);
+.recipe-ingredients-button {
+  background: rgb(17, 53, 13);
   color: white;
+  font-size: small;
   position: absolute;
-  right: 0;
   bottom:  -2.5em;
   margin-bottom: .25em;
-  margin-right: .25em;
   padding: .5em 1em;
+}
+.recipe-ingredients-button:visited{
+  background: gray;
+  border: unset;
+}
+.addAll{
+  right: 0;
+  margin-right: .25em;
+  /* box-shadow: 1px 1px black;; */
+}
+.addSelected{
+  left: 0;
+  margin-right: .25em;
 }
 .component-header{
   font-weight: 700;
@@ -361,15 +360,27 @@ a.float:hover + div.label-container{
   padding: .5em;
 }
 .instructions-list-item{
+  list-style-type: inherit !important;
   text-align: justify;
+  margin-bottom: 5px;
 }
+
+
+
 
 /* other global styling */
 .truncate {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 90%;
 } 
+
+@media screen and (max-width: 576px){
+  .truncate{
+    max-width: 88%;
+  }
+}
 .disable-click{
   pointer-events: none;
   background-color: gray;
@@ -398,8 +409,16 @@ a.float:hover + div.label-container{
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 50%;
+  width: 68%;
   text-align: center;
+}
+
+@media screen and (max-width: 576px) {
+  .modal-content {
+    width: 100%;
+    padding: 20px;
+    font-size: small;
+  }
 }
 
 /* The Close Button */
@@ -454,3 +473,4 @@ li{
 #results-div{
   margin-bottom: 3px;
 }
+
