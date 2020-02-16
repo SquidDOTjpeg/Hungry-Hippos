@@ -12,5 +12,8 @@ https://squiddotjpeg.github.io/Hungry-Hippos/
     THEN i will get a grocery list
 
 # TODOs
-    Back to results
-    
+    Back to results (obj already saved to localstorage)
+    bigger clickable area for opening ingredients list
+    add only checked ingredients to "Hungry Hip-List™"
+    add user rating score
+    sort by rating score

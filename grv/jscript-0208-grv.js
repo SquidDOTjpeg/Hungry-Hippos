@@ -30,6 +30,7 @@ feelingLuckySpan.on(`click`, function (e) {
 })
 
 formSearch.submit(function (e) {
+	e.preventDefault()
 	resultsDiv.empty()
 	ulRecipeList.empty()
 	searchPara = searchInput[0].value 	// places value of search bar input into variable, on submit (enter)
@@ -77,7 +78,7 @@ function callSettingsModal() {
 
 
 	var labelforUserItemsToShowInput = $(`<label>`).attr(`for`, `userItemsToShowInput`).text(`Enter the max number of recipes you want displayed: `)
-	var userItemsToShowInput = $(`<input type="text" id="userItemsToShowInput">`)
+	var userItemsToShowInput = $(`<input type="number" min="1" max="20" value="15" placeholder="(1-20)" id="userItemsToShowInput">`)
 
 	modalContent.append(title, settingsList, labelforUserItemsToShowInput, userItemsToShowInput, saveBtn)
 
@@ -87,10 +88,12 @@ function callSettingsModal() {
 
 	saveBtn.on(`click`, function () {
 		modal.attr(`style`, `display:none;`)			// fake save button if settings can be saved when checked/unchecked
-		if(isNaN($(`#userItemsToShowInput`).val())){
+		var user1 = $(`#userItemsToShowInput`).val()
 
+		if ((user1 >= 1) && (user1 <= 20)) {
+			localStorage.setItem(`hh-itemsToShow`, JSON.stringify(user1))
 		} else {
-			localStorage.setItem(`hh-itemsToShow`,JSON.stringify($(`#userItemsToShowInput`).val()))
+			alert(`Please enter a valid number between 1 and 20`)
 		}
 	})
 
@@ -137,10 +140,12 @@ function runRecipeAjax() {
 
 	$.ajax(settings).then(function (response) {
 		console.log(`======= AJAX response (received) START =======`, response)
+
+		// just a little reminder to the user which term they searched
 		resultsDiv.append($(`<div>`)
 			.attr(`style`, `padding-top: .42em; text-align: center;`)
 			.html(`Search results for: <h4 style="font-weight: 800;">` + searchPara + `</h6>`))
-		searchPara = ``
+		searchPara = ``							// clearing the search parameter to avoid any potentials conflicts as it's no longer needed
 		clearInterval(searchingTimer)			// clearing the "searching animation" timer soon as a response is received
 		recipeArray = []						// clearing the array
 
@@ -161,7 +166,8 @@ function runRecipeAjax() {
 				}
 			}
 			if (response.results[j].sections !== undefined) {
-				newObj.userRating = response.results[j].user_ratings.score				// not sure why this needs to be in this if statement ¯\_(ツ)_/¯
+				newObj.userRating = {}
+				newObj.userRating = response.results[j].user_ratings				// not sure why this needs to be in this if statement ¯\_(ツ)_/¯
 
 				// this makes new obj with a name and an array of ingredients for each "component/section", if multiple found (ex. cake, icing, ganche)
 				for (t = 0; t < response.results[j].sections.length; t++) {
@@ -262,6 +268,7 @@ function showResults() {
 }
 function buildRecipeContainer() {
 	var getToShow = JSON.parse(localStorage.getItem(`hh-itemsToShow`))
+	
 	if (getToShow === null) {
 		itemsToShow = 15			// amount of meals to show, to choose from
 
@@ -278,9 +285,13 @@ function buildRecipeContainer() {
 		var linktoRecipe = $(`<p class="full-recipe-links">`).attr(`id`, `recipe-video-` + i).text(`Click here for full recipe`)
 		var result = $(`<div>`).attr(`class`, `recipe-list-items`).attr(`id`, `list-item` + i)
 		var ulIngredientsList = $(`<ul class="recipe-ing-list" style="display:none;">`).attr(`id`, i).empty()
-
-		result.append($(`<img class="recipe-images">`).attr(`src`, recipeArray[i].thumbnail_url))
-		result.append($(`<span>`).attr(`id`, `recipe-` + i).attr(`class`, `recipe-names`).text(recipeArray[i].name))
+		var recipeImg = $(`<img class="recipe-images">`).attr(`src`, recipeArray[i].thumbnail_url)
+		var recipeName = $(`<p>`).attr(`id`, `recipe-` + i).attr(`class`, `recipe-names`).text(recipeArray[i].name)
+		var recipeScorePos = $(`<span style="font-size:smaller">`).attr(`id`, `positive-score-` + i).attr(`class`, ``).text(`👍: `+recipeArray[i].userRating.count_positive + `     `)
+		var recipeScoreNeg = $(`<span style="font-size:smaller">`).attr(`id`, `positive-score-` + i).attr(`class`, ``).text(`👎: `+recipeArray[i].userRating.count_negative + `     `)
+		
+		
+		result.append(recipeImg, recipeScorePos, recipeScoreNeg, recipeName)
 		ulRecipeList.append(result)
 
 		for (w = 0; w < recipeArray[i].sections.length; w++) {
@@ -318,8 +329,8 @@ function callRecipeModal(id) {
 	var closeBtn = $(`<button id="recipe-close-button" class="recipe-close-button">`).text(`Close`)
 	var instructionsList = $(`<ol>`)
 	var title = $(`<h5>`).text(recipeArray[id].name + `:`)
-	var video = $(`<video width="320" height="240" controls>`)
-	var vidSrc = $(`<source>`).attr(`src`,recipeArray[id].video_url).attr(`type`,`video/mp4`)
+	var video = $(`<video muted controls>`).attr(`class`, `recipe-videos`)
+	var vidSrc = $(`<source>`).attr(`src`, recipeArray[id].video_url).attr(`type`, `video/mp4`)
 
 	modalContent.empty()
 

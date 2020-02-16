@@ -309,6 +309,11 @@ a.float:hover + div.label-container{
   font-size: 1.25em;
   padding: .2em;
 }
+.recipe-videos{
+  width: 80%;
+  border: none;
+  margin-bottom: 10px;
+}
 .recipe-ing-list{
   position: relative;
   float: left;
