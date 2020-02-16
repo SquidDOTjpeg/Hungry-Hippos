@@ -216,7 +216,14 @@ function showResults() {
 
 	})
 
+	$(`.user-ratings`).on(`click`,function(e){
+		e.preventDefault()
+		var el = el.target
+		alert(`You must sign in to vote.`)
+	})
+
 	$(`.full-recipe-links`).on(`click`, function (e) {
+		e.stopPropagation()
 		var el = e.target
 		var p = el.parentElement.id
 
@@ -239,8 +246,6 @@ function showResults() {
 				}
 			}
 		}
-
-		console.log(activeUserIngredientArray)
 
 	})
 
@@ -282,13 +287,13 @@ function buildRecipeContainer() {
 	}
 
 	for (i = 0; i < itemsToShow; i++) {
-		var linktoRecipe = $(`<p class="full-recipe-links">`).attr(`id`, `recipe-video-` + i).text(`Click here for full recipe`)
+		var linktoRecipe = $(`<p class="full-recipe-links">`).attr(`id`, `recipe-video-` + i).text(`Click here for full recipe & video`)
 		var result = $(`<div>`).attr(`class`, `recipe-list-items`).attr(`id`, `list-item` + i)
 		var ulIngredientsList = $(`<ul class="recipe-ing-list" style="display:none;">`).attr(`id`, i).empty()
 		var recipeImg = $(`<img class="recipe-images">`).attr(`src`, recipeArray[i].thumbnail_url)
 		var recipeName = $(`<p>`).attr(`id`, `recipe-` + i).attr(`class`, `recipe-names`).text(recipeArray[i].name)
-		var recipeScorePos = $(`<span style="font-size:smaller">`).attr(`id`, `positive-score-` + i).attr(`class`, ``).text(`👍: `+recipeArray[i].userRating.count_positive + `     `)
-		var recipeScoreNeg = $(`<span style="font-size:smaller">`).attr(`id`, `positive-score-` + i).attr(`class`, ``).text(`👎: `+recipeArray[i].userRating.count_negative + `     `)
+		var recipeScorePos = $(`<span style="font-size:smaller">`).attr(`id`, `positive-score-` + i).attr(`class`, `user-ratings`).text(`👍: `+recipeArray[i].userRating.count_positive + `     `)
+		var recipeScoreNeg = $(`<span style="font-size:smaller">`).attr(`id`, `negative-score-` + i).attr(`class`, `user-ratings`).text(`👎: `+recipeArray[i].userRating.count_negative + `     `)
 		
 		
 		result.append(recipeImg, recipeScorePos, recipeScoreNeg, recipeName)
@@ -313,13 +318,11 @@ function buildRecipeContainer() {
 
 		// making a add-all and add-selected (to grocery list) buttons
 		var allButton = $(`<button class="recipe-ingredients-button addAll">`).attr(`type`, `button`).attr(`id`, ``).text(`Add all`)
-		var selectedButton = $(`<button class="recipe-ingredients-button addSelected">`).attr(`type`, `button`).attr(`id`, ``).text(`Add selected to My Grocery List`)
+		var selectedButton = $(`<button class="recipe-ingredients-button addSelected">`).attr(`type`, `button`).attr(`id`, ``).text(`Add selected to my Hungry Hip-List™`)
 		result.append(ulIngredientsList.append(selectedButton, allButton))				// appending aforementioned buttons to ul which is itself appended to the "result" recipe
 	}
 
 }
-
-
 function renderRecipeInstructions(id) {
 	callRecipeModal(id)
 }
@@ -329,8 +332,8 @@ function callRecipeModal(id) {
 	var closeBtn = $(`<button id="recipe-close-button" class="recipe-close-button">`).text(`Close`)
 	var instructionsList = $(`<ol>`)
 	var title = $(`<h5>`).text(recipeArray[id].name + `:`)
-	var video = $(`<video muted controls>`).attr(`class`, `recipe-videos`)
-	var vidSrc = $(`<source>`).attr(`src`, recipeArray[id].video_url).attr(`type`, `video/mp4`)
+	var video = $(`<video controls>`).attr(`class`, `recipe-videos`)
+	var vidSrc = $(`<source>`).attr(`src`, recipeArray[id].video_url).attr(`type`, `video/mp4`).text(`Your browser does not support mp4 video playback`)
 
 	modalContent.empty()
 
@@ -347,7 +350,7 @@ function callRecipeModal(id) {
 
 	closeBtn.on(`click`, function () {
 		modal.attr(`style`, `display:none;`)			// fake save button if settings can be saved when checked/unchecked
-
+		video.remove()
 	})
 
 	// When the user clicks anywhere outside of the modal, it closes it
@@ -355,8 +358,13 @@ function callRecipeModal(id) {
 
 		if (event.target === modal[0]) {
 			modal.attr(`style`, `display:none;`)
+			video.remove()
 		}
 	})
 }
+$(`.hero-section-text`).on(`click`,function(e){
+	resultsDiv.empty()
+	showResults()
+})
 
 // })	// end of "on load" 	

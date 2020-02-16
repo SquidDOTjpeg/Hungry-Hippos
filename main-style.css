@@ -297,7 +297,13 @@ a.float:hover + div.label-container{
   word-wrap: break-word;
   border: 1px #ffffff75 outset;
 }
-
+.full-recipe-links{
+  text-decoration: underline;
+  color: red;
+}
+.full-recipe-links:hover{
+  cursor: pointer;
+}
 .recipe-images{
   max-height: 7em;
   max-width: 7em;
@@ -309,10 +315,14 @@ a.float:hover + div.label-container{
   font-size: 1.25em;
   padding: .2em;
 }
+.recipe-names:hover{
+  cursor: pointer;
+}
 .recipe-videos{
   width: 80%;
+  max-height: 360px;
   border: none;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .recipe-ing-list{
   position: relative;
