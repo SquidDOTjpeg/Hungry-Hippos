@@ -7,13 +7,14 @@ const searchAnimationDiv = $(`<div class="search-animation-div">`)
 const ulRecipeList = $(`<ul id="recipe-list" class="recipe-list">`)
 const feelingLuckySpan = $(`#feeling-lucky`)
 const feelingLuckyCog = $(`#feeling-lucky-cog`)
+const mapButton = $(`<li>`).text(`Show Map`).appendTo($(`.hero-search-filter-menu`))
 var searchingTimer, itemsToShow;
 var searchPara, topMeals, userRatingScore, sampleIngredient, mealURL, mealImg;
 var recipeArray = [];			// array to hold each recipe obj
-// console.log(localStorage.getItem(JSON.parse(`hh-recipeArray`)))
 
 var feelingLuckyArray = [`Pizza`, `Burger`, `Mexican`, `Chinese`, `Beef`, `Chicken`, `Pork`, `Tacos`, `Kale`, `Thai`, `Vietnamese`, `American`, `Orange Chicken`, `Orange Juice`, `Coconut`, `Acai`, `Corn`, `Hot Dog`]
 var yuckyArray = [`Pancake`];
+// console.log(localStorage.getItem(JSON.parse(`hh-recipeArray`)))
 
 feelingLuckyCog.on(`click`, function (e) {
 	callSettingsModal()
@@ -37,6 +38,13 @@ formSearch.submit(function (e) {
 	runRecipeAjax()
 	// searchInput[0].value = ``
 })
+mapButton.on(`click`,function(e){
+	if($(`.mapbox-div`) !== undefined){
+		$(`.mapbox-div`).remove()
+	}
+	var div = $(`<div class="mapbox-div">`).prependTo(resultsDiv)
+	var iframe = $(`<iframe class="mapbox-iframe">`).attr(`src`,`./grv/store-locator/index.html`).appendTo(div)
+})
 
 function callSettingsModal() {
 	var chk = `chk`
@@ -45,7 +53,7 @@ function callSettingsModal() {
 	var modal = $(`#templateModal`)
 	var saveBtn = $(`<button id="flucky-save-button" class="modal-save-button">`).text(`Save`)
 	// var combined = feelingLuckyArray.concat(yuckyArray)
-	var settingsList = $(`<ol>`)
+	var settingsList = $(`<ol class="feeling-lucky-list-options">`)
 	var title = $(`<h5>`).text(`Please select your options:`)
 
 	function createSettingsList(term, c) {
@@ -76,19 +84,31 @@ function callSettingsModal() {
 		createSettingsList(yuckyArray[y], unchk)
 	}
 
-
 	var labelforUserItemsToShowInput = $(`<label>`).attr(`for`, `userItemsToShowInput`).text(`Enter the max number of recipes you want displayed: `)
 	var userItemsToShowInput = $(`<input type="number" min="1" max="20" value="15" placeholder="(1-20)" id="userItemsToShowInput">`)
 
 	modalContent.append(title, settingsList, labelforUserItemsToShowInput, userItemsToShowInput, saveBtn)
 
 	// LISTENERS
+	saveBtn.on(`click`, function (e) {
+		e.preventDefault()
 
-	// make listener for checked change & move (push/splice) to yuckyArray
-
-	saveBtn.on(`click`, function () {
 		modal.attr(`style`, `display:none;`)			// fake save button if settings can be saved when checked/unchecked
 		var user1 = $(`#userItemsToShowInput`).val()
+		// console.log(settingsList[0].children)
+		feelingLuckyArray = []
+		yuckyArray = []
+
+		for (var i = 0; i < settingsList[0].children.length; i++) {
+			var optionsBox = settingsList[0].children[i].children[0]
+			if(optionsBox.checked){
+				feelingLuckyArray.push(settingsList[0].children[i].children[1].innerText)
+				// save this to localstorage
+			} else {
+				yuckyArray.push(settingsList[0].children[i].children[1].innerText)
+				// save this to localstorage
+			}
+		}
 
 		if ((user1 >= 1) && (user1 <= 20)) {
 			localStorage.setItem(`hh-itemsToShow`, JSON.stringify(user1))
@@ -97,18 +117,17 @@ function callSettingsModal() {
 		}
 	})
 
-	// When the user clicks anywhere outside of the modal, it does not close it
+	// When the user clicks anywhere outside of the modal, it closes it
 	$(window).on(`click`, function (event) {
 		if (event.target == modal[0]) {
 			modal.attr(`style`, `display:none;`)
 		}
 	})
 }
-
-
 function runSearchAnimation() {
 	searchInput.attr(`placeholder`, ``)
 	searchAnimationDiv.empty()
+
 	var searchAnimationText = ($(`<p style="font-size: 24px">`).text(`Searching for "` + searchPara + `".`))
 	resultsDiv.append(searchAnimationDiv.append(searchAnimationText))
 	searchingTimer = setInterval(function () {
@@ -139,12 +158,12 @@ function runRecipeAjax() {
 	}
 
 	$.ajax(settings).then(function (response) {
-		console.log(`======= AJAX response (received) START =======`, response)
+		// console.log(`======= AJAX response (received) START =======`, response)
 
-		// just a little reminder to the user which term they searched
+		// just a little reminder to the user of which term they searched
 		resultsDiv.append($(`<div>`)
 			.attr(`style`, `padding-top: .42em; text-align: center;`)
-			.html(`Search results for: <h4 style="font-weight: 800;">` + searchPara + `</h6>`))
+			.html(`Search results for: <h6 style="font-weight: 800;">` + searchPara + `</h6>`))
 		searchPara = ``							// clearing the search parameter to avoid any potentials conflicts as it's no longer needed
 		clearInterval(searchingTimer)			// clearing the "searching animation" timer soon as a response is received
 		recipeArray = []						// clearing the array
@@ -180,10 +199,10 @@ function runRecipeAjax() {
 				recipeArray.push(newObj)			// push whole new obj into the recipe array holding all our recipe objs
 			}
 		}
-		localStorage.setItem(`hh-recipeArray`, JSON.stringify(recipeArray))
+		localStorage.setItem(`hh-recipeArray`, JSON.stringify(recipeArray))				// save current pulled recipe array into local storage
 		showResults()			// run showResults to display all gathered data from our recipeArray
 
-		console.log(`The recipe array is:`, recipeArray, `======= AJAX response END =======`)
+		// console.log(`The recipe array is:`, recipeArray, `======= AJAX response END =======`)
 	});
 }
 function showResults() {
@@ -195,11 +214,7 @@ function showResults() {
 		alert(`No recipes found`)
 	}
 
-	$(`#recipe-list`).empty()			// emptying our handy recipe-list div for clean slate
-
 	buildRecipeContainer()				// run buildRecipeContainer for dynamic html rendering
-
-	resultsDiv.append(ulRecipeList)
 
 	// on click listener, for displaying or hidding the ul list rendered underneath each "recipe name and image"
 	// would like this to recognize any other "open" ul lists and close them before opening new one
@@ -216,71 +231,85 @@ function showResults() {
 
 	})
 
-	$(`.user-ratings`).on(`click`,function(e){
+	// on click listener for user-ratings
+	// currently does nothing, eventually maybe it will let you upvote/downvote; but no, not ever really
+	$(`.user-ratings`).on(`click`, function (e) {
 		e.preventDefault()
-		var el = el.target
+		// var el = e.target
 		alert(`You must sign in to vote.`)
 	})
 
+	// on click listener for recipe name
+	// opens its respective ingredient list and video/instruction list
 	$(`.full-recipe-links`).on(`click`, function (e) {
-		e.stopPropagation()
+		// e.stopPropagation()
 		var el = e.target
 		var p = el.parentElement.id
 
-		renderRecipeInstructions(p)
+		callRecipeModal(p)
 	})
 
+	// on click listener for the addAll buttons to add all the respective ingredients to the activeUserIngredientArray
+	// marks all ingredients as checked
 	$(`.addAll`).on(`click`, function (e) {
-		e.stopPropagation()
-		var el = e.target
-		console.log(el)
-		$(el).attr(`class`, `recipe-ingredients-button addAll disable-click`).text(`Added all to list`)
-		var ingSections = recipeArray[el.parentElement.id].sections
 
-		for (s = 0; s < ingSections.length; s++) {
-			var ingArray = recipeArray[el.parentElement.id].sections[s].ingredientsArray
-			for (r = 0; r < ingArray.length; r++) {
-				for (q = 0; q < ingArray[r].length; q++) {
-					activeUserIngredientArray.push(ingArray[r][q].raw_text)
-					// console.log()
-				}
+		// e.stopPropagation()
+		var el = e.target
+		$(el).attr(`class`, `recipe-ingredients-button addAll disable-click`).text(`All selected`)
+
+		var elementsinUlParent = el.parentElement.children			// all children of parent where button is in, including list items in variable
+
+		// looping through the children
+		for (var i = 0; i < elementsinUlParent.length; i++) {
+			var item = elementsinUlParent[i]			// storing every element in item variable
+
+			// checking to see if the child is an LI element
+			if (item.tagName === `LI`) {
+				item.children[0].checked = true
 			}
 		}
 
 	})
 
-	// $(`.addSelected`).on(`click`, function (e) {
-	// 	// e.stopPropagation()
-	// 	var el = e.target
-	// 	$(el).attr(`class`,`recipe-ingredients-button addSelected disable-click`).text(`Added selected to list`)
-	// 	var ingSections = recipeArray[el.parentElement.id].sections
-	// 	console.log(`addSelected element:`,el)
-	// 	for(s=0;s<ingSections.length;s++){
-	// 		var ingArray = recipeArray[el.parentElement.id].sections[s].ingredientsArray
+	// on click listener for the addSelected buttons to add all the respective ingredients to the activeUserIngredientArray
+	$(`.addSelected`).on(`click`, function (e) {
+		// e.stopPropagation()
+		var el = e.target
+		var found = false
+		var elementsinUlParent = el.parentElement.children			// all children of parent where button is in, including list items in variable
 
-	// 		for(r=0;r<ingArray.length;r++){
-	// 			for(q=0;q<ingArray[r].length;q++){
-	// 				if(el === checked){
-	// 					console.log(`first try bitch`)
-	// 				}
-	// 				activeUserIngredientArray.push(ingArray[r][q].raw_text)
-	// 				// console.log()
-	// 			}
-	// 		}
-	// 	}
+		// looping through the children
+		for (var i = 0; i < elementsinUlParent.length; i++) {
+			var item = elementsinUlParent[i]			// storing every element in item variable
 
-	// })
+			// checking to see if the child is an LI element
+			if (item.tagName === `LI`) {
+				// checking to see if the input checkbox is checked (LI element's 1st child)
+				if (item.children[0].checked) {
+					found = true
+					// if yes, push the text of its label (LI element's 2nd child) into the activeUserIngredientArray
+					activeUserIngredientArray.push($(item.children[1]).text())			// binding to jquery to use text function
+				}
+			}
+		}
+		
+		if(found){
+			$(el).attr(`class`, `recipe-ingredients-button addSelected disable-click`).text(`Added selected to list`)
+		}
+
+	})
 }
 function buildRecipeContainer() {
-	var getToShow = JSON.parse(localStorage.getItem(`hh-itemsToShow`))
-	
+	resultsDiv.append(ulRecipeList.empty())			// appends blank recipe list to the results div 
+
+	var getToShow = JSON.parse(localStorage.getItem(`hh-itemsToShow`))			// user set options to display
+
 	if (getToShow === null) {
 		itemsToShow = 15			// amount of meals to show, to choose from
 
 	} else {
 		itemsToShow = getToShow
 	}
-
 
 	if (recipeArray.length < itemsToShow) {
 		itemsToShow = recipeArray.length
@@ -291,11 +320,10 @@ function buildRecipeContainer() {
 		var result = $(`<div>`).attr(`class`, `recipe-list-items`).attr(`id`, `list-item` + i)
 		var ulIngredientsList = $(`<ul class="recipe-ing-list" style="display:none;">`).attr(`id`, i).empty()
 		var recipeImg = $(`<img class="recipe-images">`).attr(`src`, recipeArray[i].thumbnail_url)
-		var recipeName = $(`<p>`).attr(`id`, `recipe-` + i).attr(`class`, `recipe-names`).text(recipeArray[i].name)
-		var recipeScorePos = $(`<span style="font-size:smaller">`).attr(`id`, `positive-score-` + i).attr(`class`, `user-ratings`).text(`👍: `+recipeArray[i].userRating.count_positive + `     `)
-		var recipeScoreNeg = $(`<span style="font-size:smaller">`).attr(`id`, `negative-score-` + i).attr(`class`, `user-ratings`).text(`👎: `+recipeArray[i].userRating.count_negative + `     `)
-		
-		
+		var recipeName = $(`<p>`).attr(`id`, `recipe-name-` + i).attr(`class`, `recipe-names`).text(recipeArray[i].name)
+		var recipeScorePos = $(`<span style="font-size:smaller">`).attr(`id`, `positive-score-` + i).attr(`class`, `user-ratings`).text(`👍: ` + recipeArray[i].userRating.count_positive + `     `)
+		var recipeScoreNeg = $(`<span style="font-size:smaller">`).attr(`id`, `negative-score-` + i).attr(`class`, `user-ratings`).text(`👎: ` + recipeArray[i].userRating.count_negative + `     `)
+
 		result.append(recipeImg, recipeScorePos, recipeScoreNeg, recipeName)
 		ulRecipeList.append(result)
 
@@ -308,8 +336,8 @@ function buildRecipeContainer() {
 			for (x = 0; x < recipeArray[i].sections[w].ingredientsArray[0].length; x++) {
 				var li = $(`<li>`)
 				// make a checkbox for each ingredient
-				var chkbox = $(`<input>`).attr(`type`, `checkbox`).attr(`id`, `section-` + w + `-ingredient-` + x)
-				var label = $(`<label class="truncate">`).attr(`for`, `section-` + w + `-ingredient-` + x).text(recipeArray[i].sections[w].ingredientsArray[0][x].raw_text)
+				var chkbox = $(`<input>`).attr(`type`, `checkbox`).attr(`id`, `recipe-` + i + `-section-` + w + `-ingredient-` + x)
+				var label = $(`<label class="truncate">`).attr(`for`, `recipe-` + i + `-section-` + w + `-ingredient-` + x).text(recipeArray[i].sections[w].ingredientsArray[0][x].raw_text)
 
 				ulIngredientsList.append(li.append(chkbox, label))
 			}
@@ -317,14 +345,11 @@ function buildRecipeContainer() {
 		ulIngredientsList.prepend(linktoRecipe) 			// prepending the link to top
 
 		// making a add-all and add-selected (to grocery list) buttons
-		var allButton = $(`<button class="recipe-ingredients-button addAll">`).attr(`type`, `button`).attr(`id`, ``).text(`Add all`)
+		var allButton = $(`<button class="recipe-ingredients-button addAll">`).attr(`type`, `button`).attr(`id`, ``).text(`Select all`)
 		var selectedButton = $(`<button class="recipe-ingredients-button addSelected">`).attr(`type`, `button`).attr(`id`, ``).text(`Add selected to my Hungry Hip-List™`)
 		result.append(ulIngredientsList.append(selectedButton, allButton))				// appending aforementioned buttons to ul which is itself appended to the "result" recipe
 	}
 
-}
-function renderRecipeInstructions(id) {
-	callRecipeModal(id)
 }
 function callRecipeModal(id) {
 	var modalContent = $(`#recipe-modal-content`)
@@ -333,36 +358,33 @@ function callRecipeModal(id) {
 	var instructionsList = $(`<ol>`)
 	var title = $(`<h5>`).text(recipeArray[id].name + `:`)
 	var video = $(`<video controls>`).attr(`class`, `recipe-videos`)
-	var vidSrc = $(`<source>`).attr(`src`, recipeArray[id].video_url).attr(`type`, `video/mp4`).text(`Your browser does not support mp4 video playback`)
+	var vidSrc1 = $(`<source>`).attr(`src`, recipeArray[id].video_url).attr(`type`, `video/mp4`).text(`Your browser does not support mp4 video playback`)
 
 	modalContent.empty()
-
 	modal.attr(`style`, `display:block;`)					// immediately displaying the modal when called
 
 	for (l = 0; l < recipeArray[id].instructions.length; l++) {
-		var li = $(`<li class="instructions-list-item">`)
-		li.text(recipeArray[id].instructions[l])
-		instructionsList.append(li)
+		$(`<li class="instructions-list-item">`).text(recipeArray[id].instructions[l]).appendTo(instructionsList)
 		// console.log(recipeArray[id].instructions)
 	}
 
-	modalContent.append(title, video.append(vidSrc), instructionsList, closeBtn)
+	modalContent.append(title, video.append(vidSrc1), instructionsList, closeBtn)
 
 	closeBtn.on(`click`, function () {
-		modal.attr(`style`, `display:none;`)			// fake save button if settings can be saved when checked/unchecked
-		video.remove()
+		modal.attr(`style`, `display:none;`)		// fake save button if settings can be saved when checked/unchecked
+		video.remove()								// removing video when modal is hidden
 	})
 
-	// When the user clicks anywhere outside of the modal, it closes it
+	// When the user clicks anywhere outside of the modal, it closes it and removes video (or it will continue playing)
 	$(window).on(`click`, function (event) {
-
 		if (event.target === modal[0]) {
 			modal.attr(`style`, `display:none;`)
 			video.remove()
 		}
 	})
 }
-$(`.hero-section-text`).on(`click`,function(e){
+// on click listener on header text to get you "back" to your previous search results
+$(`.hero-section-text`).on(`click`, function (e) {
 	resultsDiv.empty()
 	showResults()
 })
