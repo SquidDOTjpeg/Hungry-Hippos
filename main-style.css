@@ -442,3 +442,9 @@ li{
 #results-div{
   margin-bottom: 3px;
 }
+
+#map {
+  width: 50%;
+  height: 50%;
+  margin: auto;
+}
