@@ -7,7 +7,7 @@ const searchAnimationDiv = $(`<div class="search-animation-div">`)
 const ulRecipeList = $(`<ul id="recipe-list" class="recipe-list">`)
 const feelingLuckySpan = $(`#feeling-lucky`)
 const feelingLuckyCog = $(`#feeling-lucky-cog`)
-const mapButton = $(`<li>`).text(`Show Map`).appendTo($(`.hero-search-filter-menu`))
+// const mapButton = $(`<li>`).text(`Show Map`).appendTo($(`.hero-search-filter-menu`))
 var searchingTimer, itemsToShow;
 var searchPara, topMeals, userRatingScore, sampleIngredient, mealURL, mealImg;
 var recipeArray = [];			// array to hold each recipe obj
@@ -38,13 +38,13 @@ formSearch.submit(function (e) {
 	runRecipeAjax()
 	// searchInput[0].value = ``
 })
-mapButton.on(`click`,function(e){
-	if($(`.mapbox-div`) !== undefined){
-		$(`.mapbox-div`).remove()
-	}
-	var div = $(`<div class="mapbox-div">`).prependTo(resultsDiv)
-	var iframe = $(`<iframe class="mapbox-iframe">`).attr(`src`,`./grv/store-locator/index.html`).appendTo(div)
-})
+// mapButton.on(`click`,function(e){
+// 	if($(`.mapbox-div`) !== undefined){
+// 		$(`.mapbox-div`).remove()
+// 	}
+// 	var div = $(`<div class="mapbox-div">`).prependTo(resultsDiv)
+// 	var iframe = $(`<iframe class="mapbox-iframe">`).attr(`src`,`./grv/store-locator/index.html`).appendTo(div)
+// })
 
 function callSettingsModal() {
 	var chk = `chk`
