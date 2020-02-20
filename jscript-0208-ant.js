@@ -1,6 +1,6 @@
 const clearIngredientsBtn = $("#clear-ingredients-button")
 const addIngredientBtn = $("#add-ingredient")
-const ingredientList = $("#ingredient-list")
+// const ingredientList = $("#ingredient-list")
 const newIngredientInput = document.querySelector("#new-ingredient-input")
 const searchBar = $("#search-bar")
 var mainIngredientList = $('#main-ingredient-list')
