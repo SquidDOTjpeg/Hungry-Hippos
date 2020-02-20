@@ -9,34 +9,48 @@ const feelingLuckySpan = $(`#feeling-lucky`)
 const feelingLuckyCog = $(`#feeling-lucky-cog`)
 // const mapButton = $(`<li>`).text(`Show Map`).appendTo($(`.hero-search-filter-menu`))
 var searchingTimer, itemsToShow;
-var searchPara, topMeals, userRatingScore, sampleIngredient, mealURL, mealImg;
+var searchTerm, topMeals, userRatingScore, sampleIngredient, mealURL, mealImg, storedRecipeInstructions;
 var recipeArray = [];			// array to hold each recipe obj
-
-var feelingLuckyArray = [`Pizza`, `Burger`, `Mexican`, `Chinese`, `Beef`, `Chicken`, `Pork`, `Tacos`, `Kale`, `Thai`, `Vietnamese`, `American`, `Orange Chicken`, `Orange Juice`, `Coconut`, `Acai`, `Corn`, `Hot Dog`]
+var feelingLuckyArray = [`Pizza`, `Burger`, `Wine`, `Chinese`, `Beef`, `Chicken`, `Pork`, `Tacos`, `Kale`, `Thai`, `Vietnamese`, `American`, `Orange Chicken`, `Orange Juice`, `Coconut`, `Acai`, `Corn`, `Hot Dog`]
 var yuckyArray = [`Pancake`];
-// console.log(localStorage.getItem(JSON.parse(`hh-recipeArray`)))
+
+init()
+
+function init (){
+	searchInput.attr(`placeholder`, `(search for a cuisine, a meal, or an ingredient)`)
+	var storedRecipeArray = JSON.parse(localStorage.getItem(`hh-recipeArray`))
+	if((storedRecipeArray !== null) || (storedRecipeArray !== [])){
+		recipeArray = storedRecipeArray
+		// displaySearchTerm(JSON.parse(localStorage.getItem(`hh-`)))
+		showResults()
+	} else {
+		
+		resultsDiv.html(`<h4 class="component-header">No stored history. Begin your search above</h4>`)
+	}
+}
 
 feelingLuckyCog.on(`click`, function (e) {
+	e.stopPropagation()
 	callSettingsModal()
-
-	// alert(`Select which options to include in Hot recipes:\n\n` + feelingLuckyArray.join(`\n`))
 })
 
 feelingLuckySpan.on(`click`, function (e) {
 	resultsDiv.empty()
 	ulRecipeList.empty()
 	var rnum = Math.floor(Math.random() * feelingLuckyArray.length)
-	searchPara = feelingLuckyArray[rnum]
+	searchTerm = feelingLuckyArray[rnum]
+	localStorage.setItem(`hh-search-term-last`,searchTerm)
 	runRecipeAjax()
 })
 
 formSearch.submit(function (e) {
-	e.preventDefault()
+	// e.preventDefault()
 	resultsDiv.empty()
 	ulRecipeList.empty()
-	searchPara = searchInput[0].value 	// places value of search bar input into variable, on submit (enter)
+	searchTerm = searchInput[0].value 	// places value of search bar input into variable, on submit (enter)
+	localStorage.setItem(`hh-search-term-last`,searchTerm)
 	runRecipeAjax()
-	// searchInput[0].value = ``
+	
 })
 // mapButton.on(`click`,function(e){
 // 	if($(`.mapbox-div`) !== undefined){
@@ -52,7 +66,6 @@ function callSettingsModal() {
 	var modalContent = $(`#settings-modal-content`)
 	var modal = $(`#templateModal`)
 	var saveBtn = $(`<button id="flucky-save-button" class="modal-save-button">`).text(`Save`)
-	// var combined = feelingLuckyArray.concat(yuckyArray)
 	var settingsList = $(`<ol class="feeling-lucky-list-options">`)
 	var title = $(`<h5>`).text(`Please select your options:`)
 
@@ -128,29 +141,30 @@ function runSearchAnimation() {
 	searchInput.attr(`placeholder`, ``)
 	searchAnimationDiv.empty()
 
-	var searchAnimationText = ($(`<p style="font-size: 24px">`).text(`Searching for "` + searchPara + `".`))
+	var searchAnimationText = ($(`<p style="font-size: 24px">`).text(`Searching for "` + searchTerm + `".`))
+
 	resultsDiv.append(searchAnimationDiv.append(searchAnimationText))
 	searchingTimer = setInterval(function () {
-		searchAnimationText.text(`Searching for "` + searchPara + `"..`)
+		searchAnimationText.text(`Searching for "` + searchTerm + `"..`)
 		setTimeout(function () {
-			searchAnimationText.text(`Searching for "` + searchPara + `"...`)
+			searchAnimationText.text(`Searching for "` + searchTerm + `"...`)
 		}, 500)
 	}, 1000)
 }
-function recipeAjaxError() {
-	alert(`No recipes found`)
-	ulRecipeList.empty()
-}
 function runRecipeAjax() {
-
+	
 	runSearchAnimation()
-
+	
+	// var ajaxError = function () {
+	// 	alert(`No recipes found`)
+	// 	ulRecipeList.empty()
+	// }
 	var settings = {
 		"async": true,
 		"crossDomain": true,
-		"url": "https://tasty.p.rapidapi.com/recipes/list?&q=" + searchPara + "&from=0&sizes=50",
+		"url": "https://tasty.p.rapidapi.com/recipes/list?&q=" + searchTerm + "&from=0&sizes=50",
 		"method": "GET",
-		"error": recipeAjaxError,
+		// "error": ajaxError,
 		"headers": {
 			"x-rapidapi-host": "tasty.p.rapidapi.com",
 			"x-rapidapi-key": "859d702838msh5b93a71ca2adb7dp16e714jsnd5e12694a313"
@@ -159,12 +173,10 @@ function runRecipeAjax() {
 
 	$.ajax(settings).then(function (response) {
 		// console.log(`======= AJAX response (received) START =======`, response)
+		searchInput[0].value = ``
 
-		// just a little reminder to the user of which term they searched
-		resultsDiv.append($(`<div>`)
-			.attr(`style`, `padding-top: .42em; text-align: center;`)
-			.html(`Search results for: <h6 style="font-weight: 800;">` + searchPara + `</h6>`))
-		searchPara = ``							// clearing the search parameter to avoid any potentials conflicts as it's no longer needed
+		displaySearchTerm(searchTerm)			// just a little reminder to the user of which term they searched
+		searchTerm = ``							// clearing the search parameter to avoid any potentials conflicts as it's no longer needed
 		clearInterval(searchingTimer)			// clearing the "searching animation" timer soon as a response is received
 		recipeArray = []						// clearing the array
 
@@ -199,20 +211,23 @@ function runRecipeAjax() {
 				recipeArray.push(newObj)			// push whole new obj into the recipe array holding all our recipe objs
 			}
 		}
+		
+		// checking to see if the search even grabbed anything to display (no internet, the word is mispelled, or it's simply not in the recipe api)
+	if (recipeArray.length === 0) {
+		alert(`No recipes found`)
+	} else{
 		localStorage.setItem(`hh-recipeArray`, JSON.stringify(recipeArray))				// save current pulled recipe array into local storage
 		showResults()			// run showResults to display all gathered data from our recipeArray
+	}
 
 		// console.log(`The recipe array is:`, recipeArray, `======= AJAX response END =======`)
 	});
 }
 function showResults() {
 	searchAnimationDiv.remove()							// remove div holding search animation, prepping for adding recipes
-	searchInput.attr(`placeholder`, `Search for...`)	// bring back the "search for..." placeholder.
+	searchInput.attr(`placeholder`, `(search for a cuisine, a meal, or an ingredient)`)	// bring back the "search for..." placeholder.
 
-	// checking to see if the search even grabbed anything to display (no internet, the word is mispelled, or it's simply not in the recipe api)
-	if (recipeArray.length === 0) {
-		alert(`No recipes found`)
-	}
+	
 
 	buildRecipeContainer()				// run buildRecipeContainer for dynamic html rendering
 
@@ -269,6 +284,7 @@ function showResults() {
 			}
 		}
 
+		
 	})
 
 	// on click listener for the addSelected buttons to add all the respective ingredients to the activeUserIngredientArray
@@ -294,6 +310,7 @@ function showResults() {
 		}
 		
 		if(found){
+			localStorage.setItem(`hh-activeUserIngredientArray`,JSON.stringify(activeUserIngredientArray))
 			$(el).attr(`class`, `recipe-ingredients-button addSelected disable-click`).text(`Added selected to list`)
 		}
 
@@ -334,12 +351,15 @@ function buildRecipeContainer() {
 				.appendTo(ulIngredientsList)						// append to the declared ul outside loop
 
 			for (x = 0; x < recipeArray[i].sections[w].ingredientsArray[0].length; x++) {
-				var li = $(`<li>`)
-				// make a checkbox for each ingredient
-				var chkbox = $(`<input>`).attr(`type`, `checkbox`).attr(`id`, `recipe-` + i + `-section-` + w + `-ingredient-` + x)
-				var label = $(`<label class="truncate">`).attr(`for`, `recipe-` + i + `-section-` + w + `-ingredient-` + x).text(recipeArray[i].sections[w].ingredientsArray[0][x].raw_text)
+				if(recipeArray[i].sections[w].ingredientsArray[0][x].raw_text !== `n/a`){
+					var li = $(`<li>`)
+					// make a checkbox for each ingredient
+					var chkbox = $(`<input>`).attr(`type`, `checkbox`).attr(`id`, `recipe-` + i + `-section-` + w + `-ingredient-` + x)
+					var label = $(`<label class="truncate">`).attr(`for`, `recipe-` + i + `-section-` + w + `-ingredient-` + x).text(recipeArray[i].sections[w].ingredientsArray[0][x].raw_text)
 
-				ulIngredientsList.append(li.append(chkbox, label))
+					ulIngredientsList.append(li.append(chkbox, label))
+				}
+
 			}
 		}
 		ulIngredientsList.prepend(linktoRecipe) 			// prepending the link to top
@@ -383,9 +403,15 @@ function callRecipeModal(id) {
 		}
 	})
 }
+function displaySearchTerm(term){
+	resultsDiv.append($(`<div>`)
+			.attr(`style`, `padding-top: .42em; text-align: center;`)
+			.html(`Search results for: <h6 style="font-weight: 800;">` + term + `</h6>`))
+}
 // on click listener on header text to get you "back" to your previous search results
 $(`.hero-section-text`).on(`click`, function (e) {
 	resultsDiv.empty()
+	displaySearchTerm(localStorage.getItem(`hh-search-term-last`))
 	showResults()
 })
 
