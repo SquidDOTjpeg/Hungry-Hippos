@@ -226,11 +226,9 @@ function showResults() {
 	searchAnimationDiv.remove()							// remove div holding search animation, prepping for adding recipes
 	searchInput.attr(`placeholder`, `(search for a cuisine, a meal, or an ingredient)`)	// bring back the "search for..." placeholder.
 
-
-
 	buildRecipeContainer()				// run buildRecipeContainer for dynamic html rendering
 
-	// on click listener, for displaying or hidding the ul list rendered underneath each "recipe name and image"
+	// on click listener, for displaying or hiding the ul list rendered underneath each "recipe name and image"
 	// would like this to recognize any other "open" ul lists and close them before opening new one
 	$(`.recipe-names`).on(`click`, function (e) {
 		e.stopPropagation()
@@ -314,6 +312,24 @@ function showResults() {
 		}
 
 	})
+
+	$(`.mini-selectAll-buttons`).on(`click`,function(e){
+		alert(`feature coming soon!`)
+		var el = e.target
+		console.log(el.parentElement.parentElement.children)
+
+		// going to have to give each ingredient a "component-id"
+		// then add/select all ingredients associated with that component
+		
+		// while(el.parentElement.nextElementSibling.tagName === "LI"){
+
+		// 	if(el.parentElement.nextElementSibling.children[0].checked){
+		// 		console.log(`already checked`)
+		// 	} else{
+		// 		el.parentElement.nextElementSibling.children[0].checked = true
+		// 	}
+		// }
+	})
 }
 function buildRecipeContainer() {
 	resultsDiv.append(ulRecipeList.empty())			// appends blank recipe list to the results div 
@@ -345,9 +361,11 @@ function buildRecipeContainer() {
 
 		for (w = 0; w < recipeArray[i].sections.length; w++) {
 			// append the name of the "component" and then in the loop its respective ingredients
+			var addThese = $(`<button class="mini-selectAll-buttons">`).text(`Select all`)
 			$(`<p class="component-header">`)
 				.text(recipeArray[i].sections[w].name)				// name
 				.appendTo(ulIngredientsList)						// append to the declared ul outside loop
+				.append(addThese)
 
 			for (x = 0; x < recipeArray[i].sections[w].ingredientsArray[0].length; x++) {
 				if (recipeArray[i].sections[w].ingredientsArray[0][x].raw_text !== `n/a`) {
