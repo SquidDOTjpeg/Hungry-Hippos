@@ -489,3 +489,8 @@ li{
   margin-bottom: 3px;
 }
 
+#map {
+  width: 85%;
+  height: 100%;
+  margin: auto;
+}
