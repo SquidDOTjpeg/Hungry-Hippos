@@ -8,10 +8,7 @@ var activeUserIngredientArray = []
 if(JSON.parse(localStorage.getItem(`hh-activeUserIngredientArray`)) !== null){
 	activeUserIngredientArray = JSON.parse(localStorage.getItem(`hh-activeUserIngredientArray`))
 } 
-<<<<<<< HEAD
-=======
 
->>>>>>> 55c0271724913a82e66c0d7700f2176e8793af33
 var ingredientTextInput = $("#ingredient-text-input")
 var submitNewIngredientBtn = $("#submit-new-button")
 

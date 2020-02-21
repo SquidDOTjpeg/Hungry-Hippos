@@ -22,8 +22,9 @@ function init() {
 	if ((storedRecipeArray !== null) || (storedRecipeArray !== [])) {
 		recipeArray = storedRecipeArray
 		// displaySearchTerm(JSON.parse(localStorage.getItem(`hh-`)))
-		showResults()
+		// showResults()
 	} else {
+		recipeArray = []
 		resultsDiv.html(`<h4 class="component-header">No stored history. Begin your search above</h4>`)
 	}
 }
@@ -286,7 +287,7 @@ function showResults() {
 
 	// on click listener for the addSelected buttons to add all the respective ingredients to the activeUserIngredientArray
 	$(`.addSelected`).on(`click`, function (e) {
-		// e.stopPropagation()
+		e.stopPropagation()
 		var el = e.target
 		var found = false
 		var elementsinUlParent = el.parentElement.children			// all children of parent where button is in, including list items in variable
