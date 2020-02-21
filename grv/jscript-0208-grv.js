@@ -44,7 +44,7 @@ feelingLuckySpan.on(`click`, function (e) {
 })
 
 formSearch.submit(function (e) {
-	// e.preventDefault()
+	e.preventDefault()
 	resultsDiv.empty()
 	ulRecipeList.empty()
 	searchTerm = searchInput[0].value 	// places value of search bar input into variable, on submit (enter)
