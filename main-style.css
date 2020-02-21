@@ -355,6 +355,13 @@ a.float:hover + div.label-container{
   background: gray;
   border: unset;
 }
+.mini-selectAll-buttons{
+  color: #CCC;
+  padding: 4px;
+  margin: 10px;
+  background: rgb(17, 53, 13);
+  font-size: small;
+}
 .addAll{
   right: 0;
   margin-right: .25em;
