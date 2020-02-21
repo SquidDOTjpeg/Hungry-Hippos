@@ -5,6 +5,9 @@ const newIngredientInput = document.querySelector("#new-ingredient-input")
 const searchBar = $("#search-bar")
 var mainIngredientList = $('#main-ingredient-list')
 var activeUserIngredientArray = []
+if(JSON.parse(localStorage.getItem(`hh-activeUserIngredientArray`)) !== null){
+	activeUserIngredientArray = JSON.parse(localStorage.getItem(`hh-activeUserIngredientArray`))
+} 
 
 var ingredientTextInput = $("#ingredient-text-input")
 var submitNewIngredientBtn = $("#submit-new-button")
