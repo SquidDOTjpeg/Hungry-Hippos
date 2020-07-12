@@ -5,9 +5,9 @@ Web application for searching and creating a grocery list based off of a specifi
 https://squiddotjpeg.github.io/Hungry-Hippos/
 ## Contributers
 
--- Gus Venes
--- Quinn Calhoon
--- Anthony Pillow
+- Gus Valenzuela
+- Quinn Calhoon
+- Anthony Pillow
     
 ## Links
 
