@@ -14,13 +14,13 @@ Here on the home page you can search for a meal you would like to prepare and it
 
 This simple page will find the nearest grocery store to you and give you the address of it! Just one quick search and you are on your way!
 
-## Contributers
+# Contributers
 
 - Gus Valenzuela
 - Quinn Calhoon
 - Anthony Pillow
     
-## Links
+# Links
 
-https://squiddotjpeg.github.io/Hungry-Hippos/
+[Deployed](https://squiddotjpeg.github.io/Hungry-Hippos/)
     
